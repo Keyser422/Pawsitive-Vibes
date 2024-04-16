@@ -1,5 +1,7 @@
 CREATE TABLE users (
     id SERIAL NOT NULL UNIQUE,
+    username TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL,
     first_name TEXT NOT NULL,
     last_name TEXT NOT NULL,
     email TEXT NOT NULL UNIQUE,
@@ -14,4 +16,13 @@ CREATE TABLE pets (
     image_url TEXT NOT NULL,
     for_sale BOOLEAN NOT NULL DEFAULT FALSE,
     price INTEGER DEFAULT NULL,
+    owner_id INTEGER NOT NULL REFERENCES users("id") ON DELETE CASCADE
+);
+
+CREATE TABLE services (
+    id SERIAL NOT NULL UNIQUE,
+    service TEXT NOT NULL,
+    picture_url TEXT NOT NULL,
+    duration INTEGER NOT NULL,
+    cost TEXT NOT NULL
 );
