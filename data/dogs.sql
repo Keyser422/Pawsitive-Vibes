@@ -43,3 +43,16 @@ CREATE TABLE appointments (
     reschedule_url TEXT NOT NULL,
     event TEXT NOT NULL
 );
+
+
+-- -- If we want to use pre-set data as an example, we can use the code:
+
+-- -- To insert sample data
+-- INSERT INTO pets (dog_name, image_url, for_sale, price, owner_id)
+-- VALUES ('Rex', '{{URL}}', true, 100, 1);
+
+-- -- To set correct id values for the sample data
+-- SELECT setval('pets_id_seq', (SELECT MAX(id) + 1 FROM pets));
+
+-- -- To drop the table if we want to just use the sample data
+-- DROP TABLE IF EXISTS pets
