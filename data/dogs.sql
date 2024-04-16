@@ -1,0 +1,4 @@
+CREATE TABLE pets (
+    id SERIAL NOT NULL UNIQUE,
+    
+);
