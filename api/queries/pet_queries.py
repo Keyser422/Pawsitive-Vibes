@@ -20,7 +20,7 @@ class PetQueries:
     def get_all(self) -> List[PetOut]:
         try:
             with pool.connection() as conn:
-                with conn.cursor() as db:
+                with conn.cursor(row_factory=class_row(PetOut)) as db:
                     db.execute(
                         """
                         SELECT id, pet_name, image_url, for_sale, price, owner_id
@@ -40,14 +40,14 @@ class PetQueries:
                         )
                         pets.append(pet)
                     return pets
-        except Exception as e:
+        except psycopg.Error as e:
             print(e)
             return f"{e}: Could not find pets."
 
     def get_one(self, pet_id: int) -> Optional[PetOut]:
         try:
             with pool.connection() as conn:
-                with conn.cursor() as db:
+                with conn.cursor(row_factory=class_row(PetOut)) as db:
                     result = db.execute(
                         """
                         SELECT * FROM pets
@@ -67,7 +67,7 @@ class PetQueries:
                         owner_id=data[5],
                     )
                     return pet
-        except Exception as e:
+        except psycopg.Error as e:
             print(e)
             return f"{e}: Could not find that pet."
 
@@ -98,7 +98,7 @@ class PetQueries:
                     id = result.fetchone()[0]
                     data = pet.dict()
                     return PetOut(id=id, **data)
-        except Exception as e:
+        except psycopg.Error as e:
             print(e)
             return f"{e}: Could not create pet."
 
@@ -121,7 +121,7 @@ class PetQueries:
                     db.execute(query, values)
                     conn.commit()
                     return self.get_one(pet_id)
-        except Exception as e:
+        except psycopg.Error as e:
             print(e)
             return f"{e}: Could not update the pet."
 
@@ -137,6 +137,6 @@ class PetQueries:
                         [id],
                     )
                     return (True, "Deleted the pet.")
-        except Exception as e:
+        except psycopg.Error as e:
             print(e)
             return (False, "Unable to delete the pet.")
