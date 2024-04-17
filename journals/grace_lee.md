@@ -14,3 +14,5 @@ Understanding the various components of our project. I'm trying to understand ho
 Today I worked on:
 
 Our group is creating issues and assigning them, with the goal of creating 1 table with migrations this week and completing 1 set of endpoints for our models. I created a few issues that we can reference as we create merge requests. I took the sample data tables created in dogs.sql and transferred them to knew .py files in the directory api/migrations.
+
+Then I worked on creating a pets.py in the directory models, with a pet_queries.py file in the directory queries. The pet_queries.py file contains the various CRUD functions to create, update, delete, and get a pet(s). I have yet to test these functions yet, but I will work more on that tomorrow.
