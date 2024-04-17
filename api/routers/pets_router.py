@@ -3,8 +3,7 @@ from typing import List, Optional
 from models.pets import PetIn, PetInUpdate, PetOut
 from queries.pet_queries import PetQueries
 
-router = APIRouter()
-
+router = APIRouter(tags=["Pets"], prefix="/api/pets")
 
 @router.get("/api/pets", response_model=List(PetOut))
 def get_all_pets(
