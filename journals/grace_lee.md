@@ -34,3 +34,5 @@ Today I worked on:
 I completed the SQL Database table showing the relations between our data tables. The users, pets, and appointments tables have relationships, while the services and testimonials tables do not.
 
 ![sql relationships table](./images/sql_relationships.png)
+
+Our group split up endpoints to work on. I've already finished all of the pets endpoints for models, queries, and routers; Kyle will be working on the users endpoints, Austin will be working on the services endpoints, and James will be working on the testimonials endpoints. We are hoping to set up our React front-end so we can start testing our database set up.
