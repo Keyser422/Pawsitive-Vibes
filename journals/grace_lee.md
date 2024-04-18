@@ -21,9 +21,16 @@ Our group is creating issues and assigning them, with the goal of creating 1 tab
 
 Then I worked on creating a pets.py in the directory models, with a pet_queries.py file in the directory queries. The pet_queries.py file contains the various CRUD class functions to create, update, delete, and get a pet(s). I also created the pets_routers.py that so far has one get function defined. I have yet to test these functions yet, but I will work more on that tomorrow.
 
-
 ## 4.17.2024
 
 Today I worked on:
 
 I noticed that my FastAPI docs page was not loading, and found out that it was due to errors in how I've set up my routers. I was able to go back and correctly create endpoints for the model pets. Afterwards, the FastAPI docs page was working properly. I modified my PetQueries repository to return Falsy values instead of an error message, so that the error messages would instead be displayed on the router portion of the app. For error handling, I referenced the user_router.py and decided to use the HTTPException status codes and messages.
+
+## 4.18.2024
+
+Today I worked on:
+
+I completed the SQL Database table showing the relations between our data tables. The users, pets, and appointments tables have relationships, while the services and testimonials tables do not.
+
+![sql relationships table](./images/sql_relationships.png)
