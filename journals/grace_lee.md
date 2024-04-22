@@ -3,13 +3,18 @@
 ## 4.12.2024
 
 
+
 Set Up Day
+
+-   Our group successfully worked on our wireframe diagrams and discussed API endpoints.
+-   Our group successfully set up our GitLab repositories and downloaded our project base.
 
 -   Our group successfully worked on our wireframe diagrams and discussed API endpoints.
 -   Our group successfully set up our GitLab repositories and downloaded our project base.
 
 
 ## 4.15.2024
+
 
 
 Today I worked on:
@@ -39,7 +44,6 @@ I completed the SQL Database table showing the relations between our data tables
 ![sql relationships table](./images/sql_relationships.png)
 
 Our group split up endpoints to work on. I've already finished all of the pets endpoints for models, queries, and routers; Kyle will be working on the users endpoints, Austin will be working on the services endpoints, and James will be working on the testimonials endpoints. We are hoping to set up our React front-end so we can start testing our database set up.
-
 
 ## 4.20.2024
 
