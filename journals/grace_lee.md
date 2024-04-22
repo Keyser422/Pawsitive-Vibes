@@ -2,17 +2,12 @@
 
 ## 4.12.2024
 
-
-
 Set Up Day
 
 -   Our group successfully worked on our wireframe diagrams and discussed API endpoints.
 -   Our group successfully set up our GitLab repositories and downloaded our project base.
 
-
 ## 4.15.2024
-
-
 
 Today I worked on:
 
@@ -51,3 +46,5 @@ I created the base template for an index.js to create a root for our app, and al
 ## 4.22.2024
 
 Today I worked on:
+
+Today, we had only 2 members of our project available. Since today was the deadline for last week's stretch goals, we used our time to merge our progress on our issue branches onto the main branch, and then pull the changes so each of us will be able to work off the same checkpoint. I decided to start working on the Navigation (Nav.js) page for our app using React.
