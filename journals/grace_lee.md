@@ -2,12 +2,17 @@
 
 ## 4.12.2024
 
+
 Set Up Day
 
 -   Our group successfully worked on our wireframe diagrams and discussed API endpoints.
 -   Our group successfully set up our GitLab repositories and downloaded our project base.
 
+-   Our group successfully worked on our wireframe diagrams and discussed API endpoints.
+-   Our group successfully set up our GitLab repositories and downloaded our project base.
+
 ## 4.15.2024
+
 
 Today I worked on:
 
