@@ -15,6 +15,7 @@ function ServiceForm () {
         data.duration = duration;
         data.cost = cost;
 
-        const url
+        const url = "http://localhost:8000/api/services/";
+        
     }
 }
