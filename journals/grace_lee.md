@@ -66,4 +66,5 @@ We were running into a duplicate router error, and we were able to find the sour
 1. front end auth
 2. Work on React forms jsx files.
 3. Navigation
- 
+
+I've revised our main.jsx to not hold the BrowserRouter, and instead moved that to our App.jsx. Now, the App.jsx holds the various components of our pages that can be accessed by clicking the NavLinks in our Nav.jsx. The UI design still needs to be refined, but the base is available to build upon.
