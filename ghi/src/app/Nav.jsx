@@ -1,5 +1,5 @@
+import React from 'react'
 import { NavLink } from 'react-router-dom'
-import 'bootstrap/dist/css/bootstrap.css'
 
 function Nav() {
     return (
@@ -7,6 +7,12 @@ function Nav() {
             <div className="container-lg">
                 <NavLink className="navbar-brand" to="/">
                     Pawsitive Vibes
+                </NavLink>
+                <NavLink className="navbar-brand" to="/signup">
+                    Sign Up
+                </NavLink>
+                <NavLink className="navbar-brand" to="/signin">
+                    Sign In
                 </NavLink>
             </div>
         </nav>
