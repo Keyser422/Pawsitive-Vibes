@@ -54,3 +54,11 @@ I realized that the main.jsx is the file that is serving as the "index.js" simil
 While working on the project with my partner Kyle, we ran into a roadblock where we are unable to see anything displayed on our localhost:5173 page. We are trying to debug this currently.
 
 Update: We were able to troubleshoot it- by deleting and recreating the database_volume and re-starting the docker containers, we were able to see our changes in the localhost:5173.
+
+## 4.23.2023
+
+Today I worked on:
+
+Today, I debugged our user creation models, queries, and router so that we are able to create a new unique user using FastAPI with a 200OK response. I also applied the front-end authentication that will require the correct FastAPI Token before one is able to perform any of the user APIs, with the exception of creating a new user.
+
+So far, on the localhost:5173 page, I'm able to see our page title "Pawsitive Vibes" with a link that redirects home, but I have yet to see the navigation page I've worked on. I'll work on debugging this today.
