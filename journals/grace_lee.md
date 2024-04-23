@@ -48,3 +48,9 @@ I created the base template for an index.js to create a root for our app, and al
 Today I worked on:
 
 Today, we had only 2 members of our project available. Since today was the deadline for last week's stretch goals, we used our time to merge our progress on our issue branches onto the main branch, and then pull the changes so each of us will be able to work off the same checkpoint. I decided to start working on the Navigation (Nav.js) page for our app using React.
+
+I realized that the main.jsx is the file that is serving as the "index.js" similar to our other project. This is where the project is mounted to the ReactDOM. So I deleted the index.jsx file I had created so we can continue using the main.jsx file.
+
+While working on the project with my partner Kyle, we ran into a roadblock where we are unable to see anything displayed on our localhost:5173 page. We are trying to debug this currently.
+
+Update: We were able to troubleshoot it- by deleting and recreating the database_volume and re-starting the docker containers, we were able to see our changes in the localhost:5173.
