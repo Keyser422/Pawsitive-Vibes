@@ -15,13 +15,12 @@ export default function SignInForm() {
         last_name: '',
         email: '',
         phone_number: '',
-        bio: '',
     })
 
     const handleInputChange = (event) => {
         setUserFormData({
             ...userFormData,
-            [event.target.name]: event.target.value
+            [event.target.name]: event.target.value,
         })
     }
 
@@ -31,7 +30,7 @@ export default function SignInForm() {
 
     async function handleFormSubmit(e) {
         e.preventDefault()
-        let username =  userFormData.username
+        let username = userFormData.username
         let password = userFormData.password
         await signup({ username, password })
 
@@ -81,7 +80,7 @@ export default function SignInForm() {
             <div className="container">
                 <div className="row">
                     <div className="shadow p-4 mt-4">
-                        <h1>Create and account</h1>
+                        <h1>Create an account</h1>
                         <form onSubmit={handleFormSubmit}>
                             {error && (
                                 <div className="error">{error.message}</div>
@@ -94,7 +93,6 @@ export default function SignInForm() {
                                     onChange={handleInputChange}
                                     placeholder="Enter Username"
                                 />
-                                <label htmlFor="username">Username</label>
                             </div>
                             <div className="form-floating mb-3">
                                 <input
@@ -105,7 +103,6 @@ export default function SignInForm() {
                                     onChange={handleInputChange}
                                     placeholder="Enter Password"
                                 />
-                                <label htmlFor="password">Password</label>
                             </div>
                             <div className="form-floating mb-3">
                                 <input
@@ -117,7 +114,6 @@ export default function SignInForm() {
                                     onChange={handleInputChange}
                                     placeholder="Enter first name"
                                 />
-                                <label htmlFor="first_name">First name</label>
                             </div>
                             <div className="form-floating mb-3">
                                 <input
@@ -129,7 +125,6 @@ export default function SignInForm() {
                                     onChange={handleInputChange}
                                     placeholder="Enter last name"
                                 />
-                                <label htmlFor="last_name">Last name</label>
                             </div>
                             <div className="form-floating mb-3">
                                 <input
@@ -141,7 +136,6 @@ export default function SignInForm() {
                                     onChange={handleInputChange}
                                     placeholder="Enter email"
                                 />
-                                <label htmlFor="email">Email</label>
                             </div>
                             <div className="form-floating mb-3">
                                 <input
@@ -153,25 +147,8 @@ export default function SignInForm() {
                                     onChange={handleInputChange}
                                     placeholder="Enter phone number"
                                 />
-                                <label htmlFor="phone_number">
-                                    Phone number
-                                </label>
                             </div>
-                            <div className="form-floating mb-3">
-                                <input
-                                    type="text"
-                                    name="bio"
-                                    id="bio"
-                                    value={userFormData.bio}
-                                    onChange={handleInputChange}
-                                    placeholder="Enter bio (optional)"
-                                />
-                                <label htmlFor="bio">
-                                    Bio: about you (optional)
-                                </label>
-
-                                <button type="submit">Sign Up!</button>
-                            </div>
+                            <button type="submit">Sign Up!</button>
                         </form>
                     </div>
                 </div>
