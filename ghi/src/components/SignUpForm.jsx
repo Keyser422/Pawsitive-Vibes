@@ -11,6 +11,7 @@ export default function SignInForm() {
     const [userFormData, setUserFormData] = useState({
         username: '',
         password: '',
+        confirmPassword: '',
         first_name: '',
         last_name: '',
         email: '',
@@ -24,12 +25,12 @@ export default function SignInForm() {
         })
     }
 
-    /**
-     * @param {React.FormEvent<HTMLFormElement>} e
-     */
-
     async function handleFormSubmit(e) {
         e.preventDefault()
+        if (userFormData.password !== userFormData.confirmPassword) {
+            alert("Passwords don't match")
+            return
+        }
         let username = userFormData.username
         let password = userFormData.password
         await signup({ username, password })
@@ -92,16 +93,27 @@ export default function SignInForm() {
                                     value={userFormData.username}
                                     onChange={handleInputChange}
                                     placeholder="Enter Username"
+                                    name="username"
                                 />
                             </div>
                             <div className="form-floating mb-3">
                                 <input
                                     required
-                                    type="text"
+                                    type="password"
                                     name="password"
                                     value={userFormData.password}
                                     onChange={handleInputChange}
                                     placeholder="Enter Password"
+                                />
+                            </div>
+                            <div className="form-floating mb-3">
+                                <input
+                                    required
+                                    type="password"
+                                    name="confirmPassword"
+                                    value={userFormData.confirmPassword}
+                                    onChange={handleInputChange}
+                                    placeholder="Confirm Password"
                                 />
                             </div>
                             <div className="form-floating mb-3">
