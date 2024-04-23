@@ -5,24 +5,6 @@ from pydantic import BaseModel
 from typing import Optional
 
 
-class UserRequest(BaseModel):
-    """
-    Represents a the parameters needed to create a new user
-    """
-
-    username: str
-    password: str
-
-
-class UserResponse(BaseModel):
-    """
-    Represents a user, with the password not included
-    """
-
-    id: int
-    username: str
-
-
 class UserWithPw(BaseModel):
     """
     Represents a user with password included
@@ -45,6 +27,9 @@ class UserInUpdate(BaseModel):
 
 
 class UserOut(BaseModel):
+    """
+    Represents a user, with the password not included
+    """
     id: int
     username: str
     first_name: Optional[str]
@@ -55,6 +40,9 @@ class UserOut(BaseModel):
 
 
 class UserNew(BaseModel):
+    """
+    Represents a the parameters needed to create a new user
+    """
     username: str
     password: str
     first_name: str
