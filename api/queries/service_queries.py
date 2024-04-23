@@ -44,7 +44,6 @@ class ServiceRepository:
         except psycopg.Error as e:
             print(e)
             return None
-        
     def get_all(self) -> List[ServiceOut]:
         try:
             with pool.connection() as conn:
@@ -70,7 +69,6 @@ class ServiceRepository:
         except psycopg.Error as e:
             print(e)
             return []
-        
     def get_one(self, service_id: int) -> Optional[ServiceOut]:
         try:
             with pool.connection() as conn:
@@ -97,22 +95,22 @@ class ServiceRepository:
         except psycopg.Error as e:
             print(e)
             return None
-        
-    def update(self, service_id: int, service: ServiceInUpdate) -> Optional[ServiceOut]:
+    def update(
+        self,
+        service_id: int,
+        service: ServiceInUpdate
+    ) -> Optional[ServiceOut]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     fields = []
                     values = []
-
                     properties = ["service", "picture_url", "duration", "cost"]
                     for property in properties:
                         if getattr(service, property) is not None:
                             fields.append(f"{property} = %s")
                             values.append(getattr(service, property))
-                    
                     values.append(service_id)
-
                     db.execute(
                         f"""
                         UPDATE services
@@ -136,7 +134,6 @@ class ServiceRepository:
         except psycopg.Error as e:
             print(e)
             return None
-        
     def delete(self, id: int) -> bool:
         try:
             with pool.connection() as conn:
