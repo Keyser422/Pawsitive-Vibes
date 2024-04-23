@@ -59,6 +59,6 @@ Update: We were able to troubleshoot it- by deleting and recreating the database
 
 Today I worked on:
 
-Today, I debugged our user creation models, queries, and router so that we are able to create a new unique user using FastAPI with a 200OK response. I also applied the front-end authentication that will require the correct FastAPI Token before one is able to perform any of the user APIs, with the exception of creating a new user.
+Today, I debugged our user creation models, queries, and router so that we are able to create a new unique user using FastAPI with a 200OK response. I also applied the back-end authentication that will require the correct FastAPI Token before one is able to perform any of the user APIs, with the exception of creating a new user.
 
-So far, on the localhost:5173 page, I'm able to see our page title "Pawsitive Vibes" with a link that redirects home, but I have yet to see the navigation page I've worked on. I'll work on debugging this today.    
+We were running into a duplicate router error, and we were able to find the source of the bug in the App.jsx file. We removed the BrowserRouter there, since we already have a Router set in our main.jsx. So far, on the localhost:5173 page, I'm able to see our page title "Pawsitive Vibes" with a link that redirects home, but I have yet to see the navigation page I've worked on. I'll work on debugging this today.
