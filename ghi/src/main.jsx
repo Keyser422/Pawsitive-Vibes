@@ -2,9 +2,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+
 import SignInForm from './components/SignInForm'
 import SignUpForm from './components/SignUpForm'
-import App from './App.jsx'
+import App from './App'
 import AuthProvider from './components/AuthProvider'
 
 import './index.css'
