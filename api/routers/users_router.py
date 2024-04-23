@@ -8,7 +8,11 @@ from fastapi import APIRouter, Depends, HTTPException
 from queries.user_queries import UserQueries
 from models.users import UserInUpdate, UserOut, UserNew
 from typing import List
-from utils.authentication import JWTUserData, try_get_jwt_user_data, hash_password
+from utils.authentication import (
+    JWTUserData,
+    try_get_jwt_user_data,
+    hash_password
+)
 
 
 router = APIRouter(prefix="", tags=["Users"])
@@ -58,7 +62,10 @@ async def create_new_user(
     )
 
     if not new_user:
-        raise HTTPException(status_code=400, detail="Could not create a new user.")
+        raise HTTPException(
+            status_code=400,
+            detail="Could not create a new user."
+        )
     return new_user
 
 

@@ -134,7 +134,6 @@ class UserQueries:
             )
         return user
 
-
     # get_all_users, get_one, update and delete with users_router.py
     def get_all(self) -> List[UserOut]:
         try:
