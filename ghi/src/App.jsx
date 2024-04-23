@@ -1,36 +1,23 @@
-// @ts-check
-import useAuthService from './hooks/useAuthService'
-import { NavLink } from 'react-router-dom'
-import { Outlet } from 'react-router-dom'
-
+import Nav from './app/Nav'
 import './App.css'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import ErrorNotification from './components/ErrorNotification'
+import Home from './app/Home'
+import SignInForm from './components/SignInForm'
+import SignUpForm from './components/SignUpForm'
 
 function App() {
-    const { signout, user } = useAuthService()
     return (
         <div>
-            <div
-                style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'space-around',
-                    width: '80%',
-                    margin: 'auto',
-                }}
-            >
-                <NavLink to="/todos/create">new todo</NavLink>
-                <NavLink to="/todos">my list</NavLink>
-                {user ? (
-                    <button onClick={signout}>sign out</button>
-                ) : (
-                    <>
-                        <NavLink to="/signin">sign in</NavLink>
-                        <NavLink to="/signup">sign up</NavLink>
-                    </>
-                )}
-            </div>
-            {user && <div>welcome user: {user.username}</div>}
-            <Outlet />
+            <ErrorNotification />
+            <BrowserRouter>
+                <Nav />
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/signup" element={<SignUpForm />} />
+                    <Route path="/signin" element={<SignInForm />} />
+                </Routes>
+            </BrowserRouter>
         </div>
     )
 }
