@@ -1,10 +1,12 @@
-import React, { useSate, useState } from 'react';
+import React, { useState } from 'react';
 
 function ServiceForm () {
-    const [service, setService] = useSate('');
-    const [pictureUrl, setPictureUrl] = useSate('');
+    const [service, setService] = useState('');
+    const [pictureUrl, setPictureUrl] = useState('');
     const [duration, setDuration] = useState('');
-    const [cost, setCost] = useSate('');
+    const [cost, setCost] = useState('');
+
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -75,9 +77,52 @@ function ServiceForm () {
                             ></input>
                             <label htmlFor="service">Service</label>
                         </div>
+                        <div className="form-floating mb-3">
+                            <input
+                                value={pictureUrl}
+                                onChange={handlePictureUrlChange}
+                                placeholder="picture URL"
+                                required
+                                type="text"
+                                name="picture_url"
+                                id="picture_url"
+                                className="form-control"
+                            ></input>
+                            <label htmlFor="picture_url">Image URL</label>
+                        </div>
+                        <div className="form-floating mb-3">
+                            <input
+                                value={duration}
+                                onChange={handleDurationChange}
+                                placeholder="duration"
+                                required
+                                type="text"
+                                name="duration"
+                                id="duration"
+                                className="form-control"
+                            ></input>
+                            <label htmlFor="duration">Duration</label>
+                        </div>
+                        <div className="form-floating mb-3">
+                            <input
+                                value={cost}
+                                onChange={handleCostChange}
+                                placeholder="cost"
+                                required
+                                type="text"
+                                name="cost"
+                                id="cost"
+                                className="form-control"
+                            ></input>
+                            <label htmlFor="cost">Cost</label>
+                        </div>
+                        <button className="btn btn-primary">Create</button>
                     </form>
                 </div>
             </div>
         </div>
     )
 }
+
+
+export default ServiceForm;

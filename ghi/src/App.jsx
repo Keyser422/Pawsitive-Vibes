@@ -5,6 +5,7 @@ import ErrorNotification from './components/ErrorNotification'
 import { Routes, Route, BrowserRouter } from 'react-router-dom'
 import SignInForm from './components/SignInForm'
 import SignUpForm from './components/SignUpForm'
+import ServiceForm from './components/ServiceForm'
 
 function App() {
     return (
@@ -16,6 +17,7 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/signup" element={<SignUpForm />} />
                     <Route path="/signin" element={<SignInForm />} />
+                    <Route path="/serviceform" element={<ServiceForm />} />
                 </Routes>
             </div>
         </BrowserRouter>
