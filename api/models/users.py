@@ -29,14 +29,11 @@ class UserWithPw(BaseModel):
     """
     id: int
     username: str
-    first_name: Optional[str]
-    last_name: Optional[str]
-    email: Optional[str]
-    phone_number: Optional[int]
-    bio: Optional[str]
+    password: str
 
 
 class UserInUpdate(BaseModel):
+    username: Optional[str]
     first_name: Optional[str]
     last_name: Optional[str]
     email: Optional[str]
