@@ -20,6 +20,9 @@ function Nav() {
                 <NavLink className="navbar-brand" to="/signout">
                     Sign Out
                 </NavLink>
+                <NavLink className="navbar-brand" to="/serviceform">
+                    Add a Service
+                </NavLink>
             </div>
         </nav>
     )
