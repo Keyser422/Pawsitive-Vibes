@@ -1,6 +1,7 @@
 import { NavLink, Link } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.css'
 import useAuthService from '../hooks/useAuthService'
+import logo from '../images/PV_Logo.png'
 
 function Nav() {
     const { isLoggedIn, signout } = useAuthService()
@@ -16,20 +17,26 @@ function Nav() {
         <nav className="navbar navbar-expand-lg">
             <div className="container-lg">
                 <NavLink className="navbar-brand" to="/">
-                    Pawsitive Vibes
+                    <img
+                        src={logo}
+                        alt="Pawsitive Vibes Logo"
+                        style={{ height: '80px', width: '140px' }}
+                    />
                 </NavLink>
-                <NavLink className="navbar-brand" to="/pets">
-                    Aussie Dogs
+                <NavLink className="navbar-brand" to="/dogs">
+                    Dogs
+                </NavLink>
+                <NavLink className="navbar-brand" to="/services">
+                    Services
                 </NavLink>
                 {isLoggedIn ? (
-                    <Link className="navbar-brand" onClick={signout}>
-                        Sign Out
-                    </Link>
+                    <>
+                        <Link className="navbar-brand" onClick={signout}>
+                            Sign Out
+                        </Link>
+                    </>
                 ) : (
                     <>
-                        <NavLink className="navbar-brand" to="/signup">
-                            Sign Up
-                        </NavLink>
                         <NavLink className="navbar-brand" to="/signin">
                             Sign In
                         </NavLink>
