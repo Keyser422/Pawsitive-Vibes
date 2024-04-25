@@ -1,44 +1,56 @@
 import React, { useState } from 'react';
+import { Navigate } from 'react-router-dom';
+import { baseUrl } from '../services/authService';
+import useAuthService from '../hooks/useAuthService';
 
-function ServiceForm () {
-    const [service, setService] = useState('');
-    const [pictureUrl, setPictureUrl] = useState('');
-    const [duration, setDuration] = useState('');
-    const [cost, setCost] = useState('');
+function ServiceForm() {
+    const { user, error, setError } = useAuthService()
 
-    
+    const [service, setService] = useState('')
+    const [pictureUrl, setPictureUrl] = useState('')
+    const [duration, setDuration] = useState('')
+    const [cost, setCost] = useState('')
+
+    if (user) {
+        return <Navigate to="/" />
+    }
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        e.preventDefault()
 
-        const data = {};
-        data.service = service;
-        data.picture_url = pictureUrl;
-        data.duration = duration;
-        data.cost = cost;
+        const data = {
+            service: service,
+            picture_url: pictureUrl,
+            duration: duration,
+            cost: cost
+        }
 
-        const url = "http://localhost:8000/api/services/";
+        const url = 'http://localhost:8000/api/services/'
         const fetchConfig = {
-            method: "POST",
+            method: 'POST',
             body: JSON.stringify(data),
             headers: {
-                "Content-Type": "application/json"
+                'Content-Type': 'application/json',
             },
-        };
+        }
 
-        const response = await fetch(url, fetchConfig);
-        if (response.ok) {
-            const newService = await response.json();
-            setService('');
-            setPictureUrl('');
-            setDuration('');
-            setCost('');
+        try {
+            const response = await fetch(url, fetchConfig)
+            if (!response.ok) {
+                throw new Error('Failed to create service')
+            }
+            const newService = await response.json()
+            setService('')
+            setPictureUrl('')
+            setDuration('')
+            setCost('')
+        } catch (error) {
+            setError(error)
         }
     }
 
-
     const handleServiceChange = (e) => {
-        const value = e.target.value;
+        const value = e.target.value
         setService(value)
     }
 
@@ -57,13 +69,13 @@ function ServiceForm () {
         setCost(value)
     }
 
-
     return (
         <div className="row">
             <div className="offset-3 col-6">
                 <div className="shadow p-4 mt-4">
                     <h1>Create a Service</h1>
                     <form onSubmit={handleSubmit} id="create-service-form">
+                        {error && <div className="error">{error.message}</div>}
                         <div className="form-floating mb-3">
                             <input
                                 value={service}
@@ -123,6 +135,5 @@ function ServiceForm () {
         </div>
     )
 }
-
 
 export default ServiceForm;
