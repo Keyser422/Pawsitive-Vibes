@@ -1,73 +1,78 @@
 import React, { useState } from 'react';
-import { Navigate } from 'react-router-dom';
 import { baseUrl } from '../services/authService';
 import useAuthService from '../hooks/useAuthService';
 
 function ServiceForm() {
-    const { user, error, setError } = useAuthService()
+    const { user, error } = useAuthService()
 
-    const [service, setService] = useState('')
-    const [pictureUrl, setPictureUrl] = useState('')
-    const [duration, setDuration] = useState('')
-    const [cost, setCost] = useState('')
+    const [serviceFormData, setServiceFormData] = useState({
+        service: '',
+        picture_url: '',
+        duration: '',
+        cost: '',
+    })
 
-    if (user) {
-        return <Navigate to="/" />
+    const handleInputChange = (e) => {
+        setServiceFormData({
+            ...serviceFormData,
+            [e.target.name]: e.target.value,
+        })
     }
 
-    const handleSubmit = async (e) => {
+    /**
+     * @param {React.FormEvent<HTMLFormElement>} e
+     */
+
+    console.log('Service form data:', serviceFormData)
+
+    
+    async function handleSubmit(e) {
         e.preventDefault()
 
-        const data = {
-            service: service,
-            picture_url: pictureUrl,
-            duration: duration,
-            cost: cost
-        }
-
-        const url = 'http://localhost:8000/api/services/'
-        const fetchConfig = {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        }
-
         try {
-            const response = await fetch(url, fetchConfig)
-            if (!response.ok) {
-                throw new Error('Failed to create service')
+            const res = await fetch(`${baseUrl}/api/services`, {
+                method: 'post',
+                credentials: 'include',
+                body: JSON.stringify(serviceFormData),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            // if (res.ok) {
+            //     setServiceFormData({
+            //         service: '',
+            //         picture_url: '',
+            //         duraction: '',
+            //         cost: '',
+            //     })
+            // }
+
+            if (!res.ok) {
+                const errorData = await res.json()
+                if (errorData && errorData.errors) {
+                    const errorMessage = errorData.errors
+                        .map((error) => error.message)
+                        .join(', ')
+                    throw new Error(`Validation Error: ${errorMessage}`)
+                } else {
+                    throw new Error('Could not create service')
+                }
             }
-            const newService = await response.json()
-            setService('')
-            setPictureUrl('')
-            setDuration('')
-            setCost('')
+
+            const data = await res.json()
+            setServiceFormData({
+                service: '',
+                picture_url: '',
+                duration: '',
+                cost: '',
+            })
+            return data
         } catch (error) {
-            setError(error)
+            console.error(error) 
+            throw error 
         }
     }
 
-    const handleServiceChange = (e) => {
-        const value = e.target.value
-        setService(value)
-    }
-
-    const handlePictureUrlChange = (e) => {
-        const value = e.target.value
-        setPictureUrl(value)
-    }
-
-    const handleDurationChange = (e) => {
-        const value = e.target.value
-        setDuration(value)
-    }
-
-    const handleCostChange = (e) => {
-        const value = e.target.value
-        setCost(value)
-    }
 
     return (
         <div className="row">
@@ -78,8 +83,8 @@ function ServiceForm() {
                         {error && <div className="error">{error.message}</div>}
                         <div className="form-floating mb-3">
                             <input
-                                value={service}
-                                onChange={handleServiceChange}
+                                value={serviceFormData.service}
+                                onChange={handleInputChange}
                                 placeholder="Service Name"
                                 required
                                 type="text"
@@ -91,8 +96,8 @@ function ServiceForm() {
                         </div>
                         <div className="form-floating mb-3">
                             <input
-                                value={pictureUrl}
-                                onChange={handlePictureUrlChange}
+                                value={serviceFormData.picture_url}
+                                onChange={handleInputChange}
                                 placeholder="picture URL"
                                 required
                                 type="text"
@@ -104,8 +109,8 @@ function ServiceForm() {
                         </div>
                         <div className="form-floating mb-3">
                             <input
-                                value={duration}
-                                onChange={handleDurationChange}
+                                value={serviceFormData.duration}
+                                onChange={handleInputChange}
                                 placeholder="duration"
                                 required
                                 type="text"
@@ -117,8 +122,8 @@ function ServiceForm() {
                         </div>
                         <div className="form-floating mb-3">
                             <input
-                                value={cost}
-                                onChange={handleCostChange}
+                                value={serviceFormData.cost}
+                                onChange={handleInputChange}
                                 placeholder="cost"
                                 required
                                 type="text"
