@@ -9,6 +9,7 @@ import SignOut from './components/SignOut'
 import Services from './app/Services'
 import Dogs from './app/Dogs'
 import useAuthService from './hooks/useAuthService'
+import ServiceList from './components/ServiceList'
 
 function App() {
     const { isLoggedIn } = useAuthService()
@@ -22,6 +23,7 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/dogs" element={<Dogs />} />
                     <Route path="/services" element={<Services />} />
+                    <Route path="/servicelist" element={<ServiceList />} />
                     {!isLoggedIn ? (
                         <>
                             <Route path="/signup" element={<SignUpForm />} />
