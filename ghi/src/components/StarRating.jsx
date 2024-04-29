@@ -1,7 +1,6 @@
 function StarRating({ count, value, onChange }) {
     const handleClick = (index) => {
         const newRating = parseInt(index + 1);
-        console.log("NEW RATING CHECK:", newRating);
         onChange(newRating);
     };
 

@@ -27,6 +27,7 @@ function App() {
                     <Route path="/dogs" element={<Dogs />} />
                     <Route path="/services" element={<Services />} />
                     <Route path="/servicelist" element={<ServiceList />} />
+                    <Route path="/testimonials" element={<Testimonials />} />
                     {!isLoggedIn ? (
                         <>
                             <Route path="/signup" element={<SignUpForm />} />

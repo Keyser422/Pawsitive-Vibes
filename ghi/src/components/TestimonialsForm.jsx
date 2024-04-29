@@ -75,7 +75,7 @@ function TestimonialForm() {
     return (
         <div className="container">
             <div className="row">
-                <div className="col-md-8 offset-md-2">
+                <div className="col-md-10 offset-md-1">
                     <div className="card shadow">
                         <div className="card-body">
                             <h1 className="card-title text-center">
