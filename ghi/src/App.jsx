@@ -7,6 +7,7 @@ import SignInForm from './components/SignInForm'
 import SignUpForm from './components/SignUpForm'
 import SignOut from './components/SignOut'
 import Services from './app/Services'
+import Testimonials from './app/Testimonials'
 import Dogs from './app/Dogs'
 import useAuthService from './hooks/useAuthService'
 import Footer from './app/Footer'
@@ -23,6 +24,7 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/dogs" element={<Dogs />} />
                     <Route path="/services" element={<Services />} />
+                    <Route path="/testimonials" element={<Testimonials />} />
                     {!isLoggedIn ? (
                         <>
                             <Route path="/signup" element={<SignUpForm />} />

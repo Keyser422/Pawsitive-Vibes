@@ -14,7 +14,7 @@ class TestimonialRepository:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     result = db.execute(
-                        """"
+                        """
                         INSERT INTO testimonials
                             (rating, name, description)
                         VALUES

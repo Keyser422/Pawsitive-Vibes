@@ -29,6 +29,9 @@ function Nav() {
                 <NavLink className="navbar-brand" to="/services">
                     Services
                 </NavLink>
+                <NavLink className="navbar-brand" to="/testimonials">
+                    Testimonials
+                </NavLink>
                 {isLoggedIn ? (
                     <>
                         <Link className="navbar-brand" onClick={signout}>
