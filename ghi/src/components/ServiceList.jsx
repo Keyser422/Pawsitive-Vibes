@@ -3,7 +3,9 @@ import { useEffect, useState } from 'react'
 import { baseUrl } from '../services/authService'
 import '../css/ServiceList.css'
 
+
 export default function ServiceList() {
+    
     const [services, setServices] = useState([])
     const [selectedService, setSelectedService] = useState(null)
 
@@ -24,6 +26,8 @@ export default function ServiceList() {
 
     useEffect(() => {
         fetchData()
+        const polling = setInterval(fetchData, 500)
+        return () => clearInterval(polling)
     }, [])
 
     const handleServiceClick = (serviceId) => {
@@ -48,6 +52,8 @@ export default function ServiceList() {
     useEffect(() => {
         if (selectedService) {
             fetchServiceById(selectedService)
+            const polling = setInterval(fetchServiceById, 500)
+            return () => clearInterval(polling)
         }
     }, [selectedService])
 
@@ -73,6 +79,7 @@ export default function ServiceList() {
                         <p>Duration: {selectedService.duration}</p>
                         <p>Cost: {selectedService.cost}</p>
                         <p>Description: {selectedService.description}</p>
+                        
                         <Link to="create-appt">
                             <button className="btn btn-primary">
                                 Book Now
