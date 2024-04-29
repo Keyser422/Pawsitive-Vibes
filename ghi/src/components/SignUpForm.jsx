@@ -1,7 +1,6 @@
 // @ts-check
 import { useState } from 'react'
 import { Navigate, Link } from 'react-router-dom'
-import { baseUrl } from '../services/authService'
 import useAuthService from '../hooks/useAuthService'
 
 export default function SignInForm() {
@@ -33,22 +32,7 @@ export default function SignInForm() {
             alert("Passwords don't match!")
             return
         }
-
         await signup(userFormData)
-
-        const usernameUpdate = await fetch(`${baseUrl}/api/auth/signup`, {
-            method: 'post',
-            credentials: 'include',
-            body: JSON.stringify(userFormData),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-        if (!usernameUpdate.ok) {
-            throw new Error('Could not create new user')
-        }
-        const data = await usernameUpdate.json()
-        return data
     }
 
     if (user) {
@@ -70,7 +54,7 @@ export default function SignInForm() {
                                     {error.message}
                                 </div>
                             )}
-                            <div className="mb-3">
+                            <div className="form-floating mb-3">
                                 <input
                                     required
                                     type="text"
@@ -80,8 +64,9 @@ export default function SignInForm() {
                                     placeholder="Enter Username"
                                     name="username"
                                 />
+                                <label htmlFor="username">Username</label>
                             </div>
-                            <div className="mb-3">
+                            <div className="form-floating mb-3">
                                 <input
                                     required
                                     type="password"
@@ -91,8 +76,9 @@ export default function SignInForm() {
                                     onChange={handleInputChange}
                                     placeholder="Enter Password"
                                 />
+                                <label htmlFor="password">Password</label>
                             </div>
-                            <div className="mb-3">
+                            <div className="form-floating mb-3">
                                 <input
                                     required
                                     type="password"
@@ -104,8 +90,11 @@ export default function SignInForm() {
                                     }
                                     placeholder="Confirm Password"
                                 />
+                                <label htmlFor="confirm_password">
+                                    Confirm Password
+                                </label>
                             </div>
-                            <div className="mb-3">
+                            <div className="form-floating mb-3">
                                 <input
                                     required
                                     type="text"
@@ -116,8 +105,9 @@ export default function SignInForm() {
                                     onChange={handleInputChange}
                                     placeholder="Enter First Name"
                                 />
+                                <label htmlFor="firstname">First Name</label>
                             </div>
-                            <div className="mb-3">
+                            <div className="form-floating mb-3">
                                 <input
                                     required
                                     type="text"
@@ -128,8 +118,9 @@ export default function SignInForm() {
                                     onChange={handleInputChange}
                                     placeholder="Enter Last Name"
                                 />
+                                <label htmlFor="lastname">Last Name</label>
                             </div>
-                            <div className="mb-3">
+                            <div className="form-floating mb-3">
                                 <input
                                     required
                                     type="text"
@@ -140,8 +131,9 @@ export default function SignInForm() {
                                     onChange={handleInputChange}
                                     placeholder="Enter Email"
                                 />
+                                <label htmlFor="email">Email</label>
                             </div>
-                            <div className="mb-3">
+                            <div className="form-floating mb-3">
                                 <input
                                     required
                                     type="text"
@@ -152,6 +144,9 @@ export default function SignInForm() {
                                     onChange={handleInputChange}
                                     placeholder="Enter Phone Number"
                                 />
+                                <label htmlFor="phone_number">
+                                    Phone Number
+                                </label>
                             </div>
                             <div className="text-center">
                                 <button

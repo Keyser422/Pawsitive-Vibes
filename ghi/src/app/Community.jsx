@@ -1,13 +1,21 @@
 import 'bootstrap/dist/css/bootstrap.css'
-import SellPetForm from '../components/SellPetForm'
+import CreatePetForm from '../components/CreatePetForm'
 import { useState } from 'react'
 import useAuthService from '../hooks/useAuthService'
+import SideNav from './SideNav'
+import '../css/sidenav.css'
+import logo from '../images/favicon.png'
 
-function Dogs() {
+function Community() {
     const { isLoggedIn } = useAuthService()
 
     const [createForm, setCreateForm] = useState(false)
     const [closeForm, setCloseForm] = useState(true)
+    const [sideNav, setSideNav] = useState(false)
+
+    const toggleSideNav = () => {
+        setSideNav(!sideNav)
+    }
 
     const handleCreatePet = () => {
         setCreateForm(true)
@@ -23,43 +31,44 @@ function Dogs() {
         <main>
             <div className="container">
                 <div className="row">
+                    <button className="toggle" onClick={toggleSideNav}>
+                        {/* {sideNav ? '<<' : '>>'} */}
+                        <img
+                            src={logo}
+                            alt="Pawsitive Vibes Logo"
+                            style={{ height: '25px', width: '25px' }}
+                        />
+                    </button>
+                    <div className={`sidenav ${sideNav ? 'open' : ''}`}>
+                        {sideNav && isLoggedIn && <SideNav />}
+                    </div>
                     <div className="text-center">
-                        <h1>Dogs</h1>
-                        <br></br>
-                        <h2>Puppies with Pawsitive Vibes!</h2>
+                        <h1>Community</h1>
+                        <p>Community content goes here!</p>
+                        <p>ie. Profile content</p>
+                        <p>ie. Edit Profile content (Profile form) </p>
                         <p>
-                            All pups offered by Pawsitive Vibes will receive
-                            shots, deworming and a microchip.
-                            <br></br>
-                            Socialized and temperament tested from day one!
+                            We might want to move the CreatePetForm to the Edit
+                            Profile form component later.
                         </p>
-
-                        {/* if  */}
-                        {/* pups != 0, display pups here */}
-
-                        <h3>List of Puppies Go Here</h3>
-
-                        {/* else: */}
-                        {/* <p>
-                                No puppies are currently available. Contact us with
-                                questions or for more information.
-                            </p> */}
-
-                        {/* change isLoggedIn to user.admin = True ??*/}
+                        <p>
+                            We will need to remove the fields -for sale- and
+                            -price-
+                        </p>
+                        <p>From this particular Pet Form.</p>
                         {isLoggedIn && (
                             <div>
-                                {createForm && <SellPetForm />}
+                                {createForm && <CreatePetForm />}
                                 {closeForm && (
                                     <button
                                         className="btn btn-dark"
                                         onClick={handleCreatePet}
                                     >
-                                        Add a Dog
+                                        Add a Pet
                                     </button>
                                 )}
                             </div>
                         )}
-
                         {isLoggedIn && (
                             <div>
                                 <br></br>
@@ -74,18 +83,10 @@ function Dogs() {
                             </div>
                         )}
                     </div>
-                    <div className="col-md-8 offset-md-2 text-center">
-                        <h2>Community Pets!</h2>
-                        <p>
-                            To show off your Pawsitive Pets, sign in and add to
-                            our Community section
-                        </p>
-                        <p>Any pets adde by users will go here</p>
-                    </div>
                 </div>
             </div>
         </main>
     )
 }
 
-export default Dogs
+export default Community

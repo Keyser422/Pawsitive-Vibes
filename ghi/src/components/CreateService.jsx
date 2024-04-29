@@ -8,6 +8,7 @@ function ServiceForm() {
     const [serviceFormData, setServiceFormData] = useState({
         service: '',
         picture_url: '',
+        description: '',
         duration: '',
         cost: '',
     })
@@ -22,8 +23,6 @@ function ServiceForm() {
     /**
      * @param {React.FormEvent<HTMLFormElement>} e
      */
-
-    console.log('Service form data:', serviceFormData)
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -54,6 +53,7 @@ function ServiceForm() {
             setServiceFormData({
                 service: '',
                 picture_url: '',
+                description: '',
                 duration: '',
                 cost: '',
             })

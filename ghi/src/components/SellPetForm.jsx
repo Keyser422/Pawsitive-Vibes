@@ -3,14 +3,14 @@ import { useState } from 'react'
 import { baseUrl } from '../services/authService'
 import useAuthService from '../hooks/useAuthService'
 
-export default function CreatePetForm() {
+export default function SellPetForm() {
     const { user, error } = useAuthService()
 
     const [petFormData, setPetFormData] = useState({
         pet_name: '',
         image_url: '',
-        for_sale: 'false',
-        price: 0,
+        for_sale: 'true',
+        price: '',
         breed: '',
         birthday: '',
         description: '',
@@ -31,6 +31,8 @@ export default function CreatePetForm() {
     async function handleFormSubmit(e) {
         e.preventDefault()
 
+        console.log(petFormData)
+
         const res = await fetch(`${baseUrl}/api/pets`, {
             method: 'post',
             credentials: 'include',
@@ -50,7 +52,9 @@ export default function CreatePetForm() {
             <div className="row">
                 <div className="offset-3 col-6">
                     <div className="shadow p-4 mt-4">
-                        <h1 className="card-title text-center">Create a Pet</h1>
+                        <h1 className="card-title text-center">
+                            Add a dog to sell
+                        </h1>
                         <br></br>
                         <form onSubmit={handleFormSubmit}>
                             {error && (
@@ -58,6 +62,26 @@ export default function CreatePetForm() {
                                     {error.message}
                                 </div>
                             )}
+
+                            {/*  */}
+
+                            <div className="form-floating mb-3">
+                                <input
+                                    required
+                                    type="number"
+                                    min="0"
+                                    max="10000"
+                                    name="price"
+                                    value={petFormData.price}
+                                    onChange={handleInputChange}
+                                    className="form-control"
+                                    placeholder="price"
+                                />
+                                <label htmlFor="price">Price</label>
+                            </div>
+
+                            {/*  */}
+
                             <div className="form-floating mb-3">
                                 <input
                                     required
@@ -70,6 +94,7 @@ export default function CreatePetForm() {
                                 />
                                 <label htmlFor="pet_name">Pet name</label>
                             </div>
+
                             <div className="form-floating mb-3">
                                 <input
                                     required
@@ -108,6 +133,7 @@ export default function CreatePetForm() {
                             </div>
                             <div className="form-floating mb-3">
                                 <input
+                                    required
                                     type="text"
                                     name="image_url"
                                     value={petFormData.image_url}
@@ -117,6 +143,7 @@ export default function CreatePetForm() {
                                 />
                                 <label htmlFor="image_url">Image URL</label>
                             </div>
+
                             <div className="text-center">
                                 <button
                                     type="submit"
