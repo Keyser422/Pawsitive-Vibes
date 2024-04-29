@@ -15,7 +15,6 @@ import os
 app = FastAPI()
 
 
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[os.environ.get("CORS_HOST", "http://localhost:5173")],
@@ -23,6 +22,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 app.include_router(auth_router.router)
 app.include_router(users_router.router)
