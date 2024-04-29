@@ -37,6 +37,7 @@ export default function ServiceList() {
                         <th>Image</th>
                         <th>Duration</th>
                         <th>Cost</th>
+                        <th>Description</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -53,6 +54,7 @@ export default function ServiceList() {
                                 </td>
                                 <td>{service.duration}</td>
                                 <td>{service.cost}</td>
+                                <td>{service.description}</td>
                             </tr>
                         )
                     })}
