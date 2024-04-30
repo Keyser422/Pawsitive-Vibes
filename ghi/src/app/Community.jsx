@@ -5,6 +5,7 @@ import useAuthService from '../hooks/useAuthService'
 import SideNav from './SideNav'
 import '../css/sidenav.css'
 import logo from '../images/favicon.png'
+import GetUserPets from '../components/GetUserPets'
 
 function Community() {
     const { isLoggedIn } = useAuthService()
@@ -80,6 +81,7 @@ function Community() {
                             )}
                         </div>
                     )}
+                    <div>{<GetUserPets />}</div>
                 </div>
             </div>
         </main>

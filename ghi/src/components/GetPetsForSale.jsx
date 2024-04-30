@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react'
 import { baseUrl } from '../services/authService'
 import useAuthService from '../hooks/useAuthService'
 
-export default function PetList() {
+export default function ForSalePetList() {
     // TODO use or remove 'error'
-    const { user } = useAuthService()
+    const { user, error } = useAuthService()
     const [admin, setAdmin] = useState(false)
 
     const fetchUser = async () => {
@@ -64,7 +64,7 @@ export default function PetList() {
                 for (let pet of data) {
                     let pet_id = pet.id
                     // pet is not for sale
-                    if (pet.for_sale == false) {
+                    if (pet.for_sale == true) {
                         const detailUrl = `${url}/${pet_id}`
                         requests.push(fetch(detailUrl))
                     }
@@ -114,17 +114,17 @@ export default function PetList() {
                 {props.list.map((pets, index) => {
                     return (
                         <div key={index} className="card mb-3 shadow">
-                            <img
-                                src={pets.picture_url}
-                                alt="Image failed to load"
-                                className="card-img-top"
-                            />
                             <div className="card-body">
                                 <div>
                                     <h5 className="card-title">
                                         Name: {pets.pet_name}
                                     </h5>
                                 </div>
+                                <img
+                                    src={pets.picture_url}
+                                    alt="Image failed to load"
+                                    className="card-img-top"
+                                />
 
                                 {pets.for_sale && (
                                     <div>
@@ -179,7 +179,7 @@ export default function PetList() {
 
     useEffect(() => {
         fetchData()
-    })
+    }, [])
 
     return (
         <>

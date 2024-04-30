@@ -4,8 +4,7 @@ import { baseUrl } from '../services/authService'
 import '../css/ServiceList.css'
 
 
-export default function ServiceList() {
-    
+export default function ServiceList(props) {
     const [services, setServices] = useState([])
     const [selectedService, setSelectedService] = useState(null)
 
@@ -26,9 +25,11 @@ export default function ServiceList() {
 
     useEffect(() => {
         fetchData()
-        const polling = setInterval(fetchData, 500)
-        return () => clearInterval(polling)
-    }, [])
+        if (props.pollService) {
+            const polling = setInterval(fetchData, 1)
+            return () => clearInterval(polling)
+        }
+    })
 
     const handleServiceClick = (serviceId) => {
         setSelectedService(serviceId)
@@ -52,10 +53,12 @@ export default function ServiceList() {
     useEffect(() => {
         if (selectedService) {
             fetchServiceById(selectedService)
-            const polling = setInterval(fetchServiceById, 500)
-            return () => clearInterval(polling)
+            if (props.pollService) {
+                const polling = setInterval(fetchServiceById, 1)
+                return () => clearInterval(polling)
+            }
         }
-    }, [selectedService])
+    })
 
     const handleBackToList = () => {
         setSelectedService(null)
