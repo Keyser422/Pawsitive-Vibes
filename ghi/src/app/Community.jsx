@@ -5,10 +5,9 @@ import useAuthService from '../hooks/useAuthService'
 import SideNav from './SideNav'
 import '../css/sidenav.css'
 import logo from '../images/favicon.png'
-import GetUserPets from '../components/GetUserPets'
 
 function Community() {
-    const { user, isLoggedIn } = useAuthService()
+    const { isLoggedIn } = useAuthService()
 
     const [createForm, setCreateForm] = useState(false)
     const [closeForm, setCloseForm] = useState(true)
@@ -81,7 +80,6 @@ function Community() {
                             )}
                         </div>
                     )}
-                        <div>{<GetUserPets />}</div>
                 </div>
             </div>
         </main>
