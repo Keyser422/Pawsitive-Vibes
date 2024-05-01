@@ -4,32 +4,38 @@ import { useState } from 'react'
 import useAuthService from '../hooks/useAuthService'
 import ServiceList from '../components/ServiceList'
 
-function Services() {
+function Services(props) {
     // later this isLoggedIn logic should be replaced with
     // logic to check for admin status instead.
+    const admin = props.admin
     const { isLoggedIn } = useAuthService()
 
     const [createForm, setCreateForm] = useState(false)
     const [closeForm, setCloseForm] = useState(true)
-    const [pollService, setPollService] = useState(false)
+    // const [pollService, setPollService] = useState(false)
+    const [refresh, setRefresh] = useState(false)
 
     const handleCreateService = () => {
         setCreateForm(true)
         setCloseForm(false)
-        setPollService(true)
+        // setPollService(true)
+        setRefresh((prevRefresh) => !prevRefresh)
+
     }
 
     const handleCloseForm = () => {
         setCreateForm(false)
         setCloseForm(true)
-        setPollService(false)
+        // setPollService(false)
+
     }
 
+    
     return (
         <main>
             <div className="row">
                 <div className="text-center">
-                    <ServiceList poll={pollService} />
+                    <ServiceList pollService={refresh} admin={admin}/>
 
                     {isLoggedIn && (
                         <div>
@@ -44,19 +50,18 @@ function Services() {
                             )}
                         </div>
                     )}
-                    {isLoggedIn && (
-                        <div>
-                            <br></br>
-                            {createForm && (
-                                <button
-                                    className="btn btn-secondary"
-                                    onClick={handleCloseForm}
-                                >
-                                    Close Form
-                                </button>
-                            )}
-                        </div>
-                    )}
+
+                    <div>
+                        <br></br>
+                        {createForm && isLoggedIn && (
+                            <button
+                                className="btn btn-secondary"
+                                onClick={handleCloseForm}
+                            >
+                                Close Form
+                            </button>
+                        )}
+                    </div>
                 </div>
             </div>
         </main>
