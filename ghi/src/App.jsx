@@ -12,7 +12,6 @@ import SignOut from './components/SignOut'
 import Services from './app/Services'
 import Testimonials from './app/Testimonials'
 import MonolithDogs from './app/DogsBundle'
-import Dogs from './app/Dogs'
 import useAuthService from './hooks/useAuthService'
 import Footer from './app/Footer'
 import UpdateService from './components/UpdateService'
@@ -37,6 +36,7 @@ function App() {
                 if (response.ok) {
                     const userData = await response.json()
                     setAdmin(userData.admin)
+                    console.log('Is Admin:', userData.admin)
                 }
             } catch (e) {
                 console.error(e)

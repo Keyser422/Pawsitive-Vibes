@@ -58,6 +58,9 @@ function ServiceForm() {
                 duration: '',
                 cost: '',
             })
+
+            
+
             return data
         } catch (error) {
             console.error(error)

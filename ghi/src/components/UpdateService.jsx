@@ -94,7 +94,7 @@ export default function UpdateService() {
 
     return (
         <div className="container">
-            <h1>Edit Service</h1>
+            <h1 className="text-center">Edit Service</h1>
             {showMessage && (
                 <div className="alert alert-success" role="alert">
                     Service deleted successfully
@@ -165,17 +165,24 @@ export default function UpdateService() {
                         onChange={handleChange}
                     />
                 </div>
-                <button type="submit" className="btn btn-primary">
-                    Submit
-                </button>
-                <button
-                    type="delete"
-                    onClick={handleDelete}
-                    className="btn btn-primary"
+                <div
+                    className="button-container"
+                    style={{ marginBottom: '20px' }}
                 >
-                    Delete
-                </button>
-                <Link to="/services">Go Back</Link>
+                    <button type="submit" className="btn btn-dark">
+                        Submit
+                    </button>
+                    <button
+                        type="delete"
+                        onClick={handleDelete}
+                        className="btn btn-danger"
+                    >
+                        Delete
+                    </button>
+                    <Link to="/services" className="btn btn-secondary">
+                        Go Back
+                    </Link>
+                </div>
             </form>
         </div>
     )
