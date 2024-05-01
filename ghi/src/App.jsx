@@ -13,6 +13,7 @@ import Dogs from './app/Dogs'
 import useAuthService from './hooks/useAuthService'
 import Footer from './app/Footer'
 import ServiceList from './components/ServiceList'
+import TestimonialsList from './components/GetAllTestimonials'
 
 function App() {
     const { isLoggedIn } = useAuthService()
@@ -28,6 +29,7 @@ function App() {
                     <Route path="/services" element={<Services />} />
                     <Route path="/servicelist" element={<ServiceList />} />
                     <Route path="/testimonials" element={<Testimonials />} />
+                    <Route path="/testimonials/manage" element={<TestimonialsList />} />
                     {!isLoggedIn ? (
                         <>
                             <Route path="/signup" element={<SignUpForm />} />

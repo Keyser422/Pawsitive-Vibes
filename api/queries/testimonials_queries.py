@@ -66,6 +66,7 @@ class TestimonialRepository:
                             rating=record[1],
                             name=record[2],
                             description=record[3],
+                            approved=record[4]
                         )
                         testimonials.append(testimonial)
                     return testimonials
@@ -81,18 +82,20 @@ class TestimonialRepository:
                         """
                         SELECT id, rating, name, description
                         FROM testimonials
-                        WHERE id = %s;
+                        WHERE id = %s
                         """,
                         [testimonial_id],
                     )
                     data = db.fetchone()
+                    print(data)
                     if data is None:
                         return None
                     testimonial = TestimonialOut(
                         id=data[0],
                         rating=data[1],
                         name=data[2],
-                        description=data[3]
+                        description=data[3],
+                        approved=data[4]
                     )
                     return testimonial
         except psycopg.Error as e:
@@ -131,7 +134,8 @@ class TestimonialRepository:
                         id=data[0],
                         rating=data[1],
                         name=data[2],
-                        description=data[3]
+                        description=data[3],
+                        approved=data[4]
                     )
                     return updated_testimonial
         except psycopg.Error as e:
