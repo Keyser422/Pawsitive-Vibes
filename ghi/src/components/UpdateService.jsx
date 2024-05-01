@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { baseUrl } from '../services/authService'
+import '../css/UpdateService.css'
 
-export default function UpdateService({ serviceId }) {
+export default function UpdateService() {
+    const { serviceId } = useParams();
     const [service, setService] = useState({
         service: '',
         description: '',
@@ -10,6 +12,8 @@ export default function UpdateService({ serviceId }) {
         duration: 0,
         cost: '',
     })
+
+    const [showMessage, setShowMessage] = useState(false);
 
     useEffect(() => {
         const fetchService = async () => {
@@ -40,6 +44,7 @@ export default function UpdateService({ serviceId }) {
             const url = `${baseUrl}/api/services/${serviceId}`
             const res = await fetch(url, {
                 method: 'PUT',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -47,7 +52,13 @@ export default function UpdateService({ serviceId }) {
             })
             if (res.ok) {
                 console.log('Service updated successfully')
-                // Handle success, e.g., redirect or show message
+                setService({
+                    service: '',
+                    description: '',
+                    picture_url: '',
+                    duration: 0,
+                    cost: '',
+                })
             } else {
                 console.error('Error updating service:', res.statusText)
             }
@@ -56,10 +67,40 @@ export default function UpdateService({ serviceId }) {
         }
     }
 
+    const handleDelete = async () => {
+        try {
+            const url = `${baseUrl}/api/services/${serviceId}`
+            const res = await fetch(url, {
+                method: 'DELETE',
+                credentials: 'include',
+            })
+            if (res.ok) {
+                console.log('Service deleted successfully')
+                setShowMessage(true);
+                setService({
+                    service: '',
+                    description: '',
+                    picture_url: '',
+                    duration: 0,
+                    cost: '',
+                })
+            } else {
+                console.error('Error deleting service:', res.statusText)
+            }
+        } catch (error) {
+            console.error('Error deleting service:', error)
+        }
+    }
+
     return (
         <div className="container">
             <h1>Edit Service</h1>
-            <form onSubmit={handleSubmit}>
+            {showMessage && (
+                <div className="alert alert-success" role="alert">
+                    Service deleted successfully
+                </div>
+            )}
+            <form className="updateform" onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label htmlFor="service" className="form-label">
                         Service Name
@@ -127,7 +168,14 @@ export default function UpdateService({ serviceId }) {
                 <button type="submit" className="btn btn-primary">
                     Submit
                 </button>
-                <Link to="/">Cancel</Link>
+                <button
+                    type="delete"
+                    onClick={handleDelete}
+                    className="btn btn-primary"
+                >
+                    Delete
+                </button>
+                <Link to="/services">Go Back</Link>
             </form>
         </div>
     )

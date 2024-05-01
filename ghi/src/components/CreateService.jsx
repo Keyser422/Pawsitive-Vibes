@@ -9,7 +9,7 @@ function ServiceForm() {
         service: '',
         picture_url: '',
         description: '',
-        duration: '',
+        duration: 0,
         cost: '',
     })
 
@@ -104,7 +104,7 @@ function ServiceForm() {
                                 onChange={handleInputChange}
                                 placeholder="duration"
                                 required
-                                type="text"
+                                type="number"
                                 name="duration"
                                 id="duration"
                                 className="form-control"
