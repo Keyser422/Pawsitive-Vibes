@@ -94,7 +94,7 @@ export default function UpdateService() {
 
     return (
         <div className="container">
-            <h1 className="text-center">Edit Service</h1>
+            <h1 className="text-center my-5">Edit Service</h1>
             {showMessage && (
                 <div className="alert alert-success" role="alert">
                     Service deleted successfully

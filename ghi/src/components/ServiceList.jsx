@@ -98,7 +98,7 @@ export default function ServiceList(props) {
                         <p>Cost: {selectedService.cost}</p>
                         <p>Description: {selectedService.description}</p>
 
-                        <Link to="create-appt">
+                        <Link to="/create-appt">
                             <button className="btn btn-dark">
                                 Book Now
                             </button>

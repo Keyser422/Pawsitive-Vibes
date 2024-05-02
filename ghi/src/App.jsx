@@ -15,6 +15,7 @@ import MonolithDogs from './app/DogsBundle'
 import useAuthService from './hooks/useAuthService'
 import Footer from './app/Footer'
 import UpdateService from './components/UpdateService'
+import CreateAppt from './components/CreateAppt'
 
 function App() {
     const { user, isLoggedIn } = useAuthService()
@@ -59,6 +60,8 @@ function App() {
                 <Nav />
                 <Routes>
                     <Route path="/" element={<Home />} />
+
+                    <Route path="/create-appt" element={<CreateAppt />} />
 
                     <Route
                         path="/dogs"
