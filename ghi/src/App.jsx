@@ -11,7 +11,8 @@ import SignUpForm from './components/SignUpForm'
 import SignOut from './components/SignOut'
 import Services from './app/Services'
 import Testimonials from './app/Testimonials'
-import MonolithDogs from './app/DogsBundle'
+import Dogs from './app/Dogs'
+import UpdatePet from './components/UpdatePet'
 import useAuthService from './hooks/useAuthService'
 import Footer from './app/Footer'
 import UpdateService from './components/UpdateService'
@@ -64,14 +65,13 @@ function App() {
                     <Route path="/create-appt" element={<CreateAppt />} />
 
                     <Route
-                        path="/dogs"
-                        element={<MonolithDogs key={refresh} admin={admin} />}
-                    />
-                    {/* <Route
-                        path="/dogs"
+                        path="/pets"
                         element={<Dogs key={refresh} admin={admin} />}
-                    /> */}
-
+                    />
+                    <Route
+                        path="pets/:petId"
+                        element={<UpdatePet key={refresh} admin={admin} />}
+                    />
                     <Route
                         path="/services"
                         element={<Services key={refresh} admin={admin} />}
