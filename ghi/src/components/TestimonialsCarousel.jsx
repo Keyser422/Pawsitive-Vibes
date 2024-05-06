@@ -18,7 +18,6 @@ function TestimonialsCarousel() {
             })
             if (response.ok) {
                 const data = await response.json()
-                // Filter for approved testimonials
                 setTestimonials(
                     data.filter((testimonial) => testimonial.approved)
                 )
