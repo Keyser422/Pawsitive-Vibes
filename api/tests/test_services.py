@@ -4,10 +4,11 @@ from queries.service_queries import ServiceRepository
 
 client = TestClient(app)
 
+
 class EmptyServiceQueries:
     def get_all(self):
         return []
-    
+
 
 def test_get_all_services():
     # ARRAGNE
@@ -20,5 +21,3 @@ def test_get_all_services():
     # ASSERT
     assert response.status_code == 404
     assert response.json() == {'detail': 'Services not found.'}
-
-
