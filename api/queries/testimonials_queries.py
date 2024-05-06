@@ -54,7 +54,7 @@ class TestimonialRepository:
                 with conn.cursor() as db:
                     db.execute(
                         """
-                        SELECT id, rating, name, description
+                        SELECT id, rating, name, description, approved
                         FROM testimonials
                         ORDER BY id;
                         """
@@ -80,7 +80,7 @@ class TestimonialRepository:
                 with conn.cursor() as db:
                     db.execute(
                         """
-                        SELECT id, rating, name, description
+                        SELECT id, rating, name, description, approved
                         FROM testimonials
                         WHERE id = %s
                         """,
@@ -112,7 +112,7 @@ class TestimonialRepository:
                 with conn.cursor() as db:
                     fields = []
                     values = []
-                    properties = ["rating", "name", "description"]
+                    properties = ["rating", "name", "description", "approved"]
                     for property in properties:
                         if getattr(testimonial, property) is not None:
                             fields.append(f"{property} = %s")
@@ -123,7 +123,7 @@ class TestimonialRepository:
                         UPDATE testimonials
                         SET {', '.join(fields)}
                         WHERE id = %s
-                        RETURNING id, rating, name, description;
+                        RETURNING id, rating, name, description, approved;
                         """,
                         values,
                     )

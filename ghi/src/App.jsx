@@ -17,6 +17,7 @@ import Footer from './app/Footer'
 import UpdateService from './components/UpdateService'
 import ServiceList from './components/ServiceList'
 import TestimonialsList from './components/GetAllTestimonials'
+import Dogs from './app/Dogs'
 
 function App() {
     const { user, isLoggedIn } = useAuthService()
@@ -66,11 +67,6 @@ function App() {
                         path="/dogs"
                         element={<MonolithDogs key={refresh} admin={admin} />}
                     />
-                    {/* <Route
-                        path="/dogs"
-                        element={<Dogs key={refresh} admin={admin} />}
-                    /> */}
-
                     <Route
                         path="/services"
                         element={<Services key={refresh} admin={admin} />}

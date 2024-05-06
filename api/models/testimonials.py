@@ -21,4 +21,4 @@ class TestimonialInUpdate(BaseModel):
     rating: Optional[int] = None
     name: Optional[str] = None
     description: Optional[str] = None
-    approved: Optional[bool] = None
+    approved: Optional[bool] = False

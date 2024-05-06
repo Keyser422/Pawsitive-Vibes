@@ -31,9 +31,7 @@ function TestimonialsList(props) {
          fetchTestimonials();
     }, []);
 
-    const handleApprove = async (id) => {
-
-
+    const handleToggleApproval = async (id, currentStatus) => {
         try {
             const response = await fetch(`${baseUrl}/api/testimonials/${id}`, {
                 method: 'PUT',
@@ -41,20 +39,20 @@ function TestimonialsList(props) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ approved: true }),
-            })
+                body: JSON.stringify({ approved: !currentStatus }),
+            });
 
             if (response.ok) {
                 SetTestimonials(
-                    testimonials.map((t) =>
-                        t.id === id ? { ...t, approved: true } : t
+                    testimonials.map((testimonial) =>
+                        testimonial.id === id ? { ...testimonial, approved: !currentStatus } : testimonial
                     )
-                )
+                );
             } else {
                 throw new Error('Failed to approve testimonial')
             }
         } catch (error) {
-            setError('Failed to approve testimonial: ' + error.message)
+            setError('Failed to approve testimonial: ${error.message}')
         }
     }
 
@@ -69,6 +67,7 @@ function TestimonialsList(props) {
                         <th>Rating</th>
                         <th>Username</th>
                         <th>Description</th>
+                        <th>Approval</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -79,14 +78,11 @@ function TestimonialsList(props) {
                             <td>{testimonial.name}</td>
                             <td>{testimonial.description}</td>
                             <td>
-                                {!testimonial.approved && (
-                                    <button
-                                        className="btn btn-success"
-                                        onClick={() => handleApprove(testimonial.id)}
-                                    >
-                                        Approve
-                                    </button>
-                                )}
+                                <input
+                                    type="checkbox"
+                                    checked={testimonial.approved}
+                                    onChange={() => handleToggleApproval(testimonial.id, testimonial.approved)}
+                                />
                             </td>
                         </tr>
                     ))}

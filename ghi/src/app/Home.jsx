@@ -1,5 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.css'
 import logo from '../images/PV_Logo.png'
+import TestimonialsCarousel from '../components/TestimonialsCarousel'
 
 function Home() {
     return (
@@ -40,7 +41,7 @@ function Home() {
                             create appointments!
                         </p>
                         <p>This is where photos will go</p>
-                        <p>This is where the Testimonials list will go</p>
+                        <TestimonialsCarousel />
                         <p>
                             For admins, this is where the toggle for Create
                             Testimonials will go.
