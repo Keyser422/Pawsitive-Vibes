@@ -20,7 +20,6 @@ import Footer from './app/Footer'
 import UpdateService from './components/UpdateService'
 import ServiceList from './components/ServiceList'
 import TestimonialsList from './components/GetAllTestimonials'
-import Dogs from './app/Dogs'
 import Profile from './components/Profile'
 import CreateAppt from './components/CreateAppt'
 
