@@ -21,10 +21,10 @@ import UpdatePet from './components/UpdatePet'
 import useAuthService from './hooks/useAuthService'
 import Footer from './app/Footer'
 import UpdateService from './components/UpdateService'
-import ServiceList from './components/ServiceList'
 import TestimonialsList from './components/GetAllTestimonials'
 import Profile from './components/Profile'
 import CreateAppt from './components/CreateAppt'
+import Meetups from './app/Meetups'
 
 function App() {
     const { user, isLoggedIn } = useAuthService()
@@ -56,7 +56,6 @@ function App() {
                 if (response.ok) {
                     const userData = await response.json()
                     setAdmin(userData.admin)
-                    console.log('Is Admin:', userData.admin)
                 }
             } catch (e) {
                 console.error(e)
@@ -122,14 +121,16 @@ function App() {
                     )}
                 </button>
                 <Routes>
-                    <Route path="/" element={<Home darkmode={darkMode} />} />
-
-                    <Route path="/create-appt" element={<CreateAppt />} />
-
+                    {/* links available for public */}
                     <Route
-                        path="/pets"
+                        path="/"
+                        element={<Home darkmode={darkMode} admin={admin} />}
+                    />
+                    <Route path="/create-appt" element={<CreateAppt />} />
+                    <Route
+                        path="/meetups"
                         element={
-                            <Dogs
+                            <Meetups
                                 key={refresh}
                                 admin={admin}
                                 darkmode={darkMode}
@@ -137,9 +138,9 @@ function App() {
                         }
                     />
                     <Route
-                        path="pets/:petId"
+                        path="/pets"
                         element={
-                            <UpdatePet
+                            <Dogs
                                 key={refresh}
                                 admin={admin}
                                 darkmode={darkMode}
@@ -156,31 +157,7 @@ function App() {
                             />
                         }
                     />
-                    <Route
-                        path="/testimonials"
-                        element={
-                            <Testimonials
-                                key={refresh}
-                                admin={admin}
-                                darkmode={darkMode}
-                            />
-                        }
-                    />
-                    <Route
-                        path="/updateservice/:serviceId"
-                        element={
-                            <UpdateService
-                                key={refresh}
-                                admin={admin}
-                                darkmode={darkMode}
-                            />
-                        }
-                    />
-                    <Route path="/dogs" element={<Dogs />} />
-                    <Route path="/services" element={<Services />} />
-                    <Route path="/servicelist" element={<ServiceList />} />
-                    <Route path="/testimonials" element={<Testimonials />} />
-                    <Route path="/testimonials/manage" element={<TestimonialsList />} />
+                    {/* sign up / sign in / sign out */}
                     {!isLoggedIn ? (
                         <>
                             <Route
@@ -204,6 +181,7 @@ function App() {
                             />
                         </>
                     )}
+                    {/* links available for logged in users only */}
                     {isLoggedIn ? (
                         <>
                             <Route
@@ -225,18 +203,69 @@ function App() {
                                 }
                             />
                             <Route
+                                path="/testimonials"
+                                element={
+                                    <Testimonials
+                                        key={refresh}
+                                        admin={admin}
+                                        darkmode={darkMode}
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/testimonials/manage"
+                                element={<TestimonialsList />}
+                            />
+                            <Route
+                                path="pets/:petId"
+                                element={
+                                    <UpdatePet
+                                        key={refresh}
+                                        admin={admin}
+                                        darkmode={darkMode}
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/updateservice/:serviceId"
+                                element={
+                                    <UpdateService
+                                        key={refresh}
+                                        admin={admin}
+                                        darkmode={darkMode}
+                                    />
+                                }
+                            />
+                            <Route
                                 path="/signout"
                                 element={<SignOut signout={handleSignOut} />}
                             />
                         </>
                     ) : (
                         <>
+                            {/* redirects user to home page when signed out */}
                             <Route
                                 path="/community"
                                 element={<Navigate to="/" />}
                             />
                             <Route
                                 path="/profile"
+                                element={<Navigate to="/" />}
+                            />
+                            <Route
+                                path="/testimonials"
+                                element={<Navigate to="/" />}
+                            />
+                            <Route
+                                path="/testimonials/manage"
+                                element={<Navigate to="/" />}
+                            />
+                            <Route
+                                path="pets/:petId"
+                                element={<Navigate to="/" />}
+                            />
+                            <Route
+                                path="/updateservice/:serviceId"
                                 element={<Navigate to="/" />}
                             />
                             <Route

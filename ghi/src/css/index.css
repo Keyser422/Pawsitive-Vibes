@@ -95,6 +95,11 @@ a.nav-style:hover {
     transition: 0.2s ease-in;
 }
 
+.fontcolor {
+    text-decoration: none;
+    color: white;
+}
+
 @media (max-width: 800px) {
     .nav {
         flex-direction: column;
@@ -147,4 +152,11 @@ code {
     width: 0px; /** width of total scrollbar **/
     background: #ffc99c; /** background of scrollbar **/
     border: 0px solid #000; /** border around whole scrollbar **/
+}
+
+
+.testimonial-header {
+    font-family: 'fangsong';
+    font-size: 1.5em;
+    color: #333;
 }

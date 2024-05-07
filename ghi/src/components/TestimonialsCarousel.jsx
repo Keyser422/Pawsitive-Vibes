@@ -2,10 +2,12 @@ import { useState, useEffect } from 'react'
 import { Carousel } from 'react-bootstrap'
 import { baseUrl } from '../services/authService'
 import '../css/TestimonialsCarousel.css'
+import '../css/darkmode.css'
 
-function TestimonialsCarousel() {
+function TestimonialsCarousel(props) {
     const [testimonials, setTestimonials] = useState([])
     const [error, setError] = useState(null)
+    const darkmode = props.darkmode
 
     const fetchApprovedTestimonials = async () => {
         try {
@@ -39,12 +41,19 @@ function TestimonialsCarousel() {
 
     return (
         <div className="testimonials-carousel-container">
-            <Carousel>
+            <Carousel
+                variant='dark'
+            >
                 {testimonials.map((testimonial) => (
                     <Carousel.Item key={testimonial.id}>
-                        <div className="testimonial-item">
-                            <h3 className = "testimonial-name">{testimonial.name}</h3>
-                            <p className = "testimonial-description">"    {testimonial.description}   "</p>
+                        <div
+                            className="testimonial-item"
+                            style={{
+                                backgroundColor: darkmode ? 'black' : 'white',
+                            }}
+                        >
+                            <h3 className="testimonial-name">&quot; {testimonial.description}  &quot;</h3>
+                            <p className="testimonial-description">{testimonial.name}</p>
                         </div>
                     </Carousel.Item>
                 ))}
