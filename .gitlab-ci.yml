@@ -18,6 +18,8 @@ tests:
         - cd api
         - pip install -r requirements.txt
         - python -m pytest
+    variables:
+        DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db/${POSTGRES_DB}
 # # Build API Image:
 # # This job builds the API docker image and pushes it to the GitLab docker registry
 # # When this job finishes you will need to use the glv-cloud-cli reset command
