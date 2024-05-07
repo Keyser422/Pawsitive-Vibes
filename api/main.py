@@ -1,8 +1,9 @@
 """
 Entry point for the FastAPI Application
 """
-from fastapi import FastAPI
+from fastapi import FastAPI, 
 from fastapi.middleware.cors import CORSMiddleware
+from keys import CALENDLY_API_KEY
 from routers import (
     auth_router,
     pets_router,
@@ -10,7 +11,7 @@ from routers import (
     services_router,
     testimonials_router,
     appointment_router,
-    meetups_router
+    meetups_router,
 )
 import os
 
@@ -35,6 +36,7 @@ app.include_router(testimonials_router.router)
 app.include_router(meetups_router.router)
 
 
+
 @app.get("/api/launch-details")
 def launch_details():
     return {
@@ -46,3 +48,5 @@ def launch_details():
             "min": "00"
         }
     }
+
+
