@@ -2,11 +2,13 @@ import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { baseUrl } from '../services/authService'
 import '../css/ServiceList.css'
+import useAuthService from '../hooks/useAuthService'
 
 export default function ServiceList(props) {
     const admin = props.admin
     const [services, setServices] = useState([])
     const [selectedService, setSelectedService] = useState(null)
+    const { isLoggedIn } = useAuthService();
 
     const fetchData = async () => {
         try {
@@ -93,6 +95,7 @@ export default function ServiceList(props) {
                             <p>Duration: {selectedService.duration}</p>
                             <p>Cost: {selectedService.cost}</p>
                             <p>Description: {selectedService.description}</p>
+                            {isLoggedIn &&
                             <a
                                 href={selectedService.calendly_url}
                                 target="_blank"
@@ -101,6 +104,7 @@ export default function ServiceList(props) {
                             >
                                 Book Now
                             </a>
+                            }
                             <button
                                 className="btn btn-secondary"
                                 onClick={handleBackToList}
@@ -144,7 +148,7 @@ export default function ServiceList(props) {
                                                     to={`/updateservice/${service.id}`}
                                                 >
                                                     <button className="btn btn-dark">
-                                                        Update
+                                                        Edit
                                                     </button>
                                                 </Link>
                                             </td>

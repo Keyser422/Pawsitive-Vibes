@@ -193,7 +193,7 @@ export default function UpdateService() {
                         onClick={handleDelete}
                         className="btn btn-danger"
                     >
-                        Delete
+                        Remove
                     </button>
                     <Link to="/services" className="btn btn-secondary">
                         Go Back
