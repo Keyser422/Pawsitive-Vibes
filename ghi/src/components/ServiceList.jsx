@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { baseUrl } from '../services/authService'
+import useAuthService from '../hooks/useAuthService'
 import '../css/ServiceList.css'
 import useAuthService from '../hooks/useAuthService'
 
@@ -8,7 +9,7 @@ export default function ServiceList(props) {
     const admin = props.admin
     const [services, setServices] = useState([])
     const [selectedService, setSelectedService] = useState(null)
-    const { isLoggedIn } = useAuthService();
+    const { isLoggedIn } = useAuthService()
 
     const fetchData = async () => {
         try {
@@ -142,7 +143,7 @@ export default function ServiceList(props) {
                                             />
                                         </td>
                                         <td>{service.cost}</td>
-                                        {admin && (
+                                        {isLoggedIn && admin && (
                                             <td>
                                                 <Link
                                                     to={`/updateservice/${service.id}`}
@@ -163,4 +164,3 @@ export default function ServiceList(props) {
         </div>
     )
 }
-
