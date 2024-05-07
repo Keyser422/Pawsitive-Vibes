@@ -23,9 +23,9 @@ import Footer from './app/Footer'
 import UpdateService from './components/UpdateService'
 import ServiceList from './components/ServiceList'
 import TestimonialsList from './components/GetAllTestimonials'
-import Dogs from './app/Dogs'
 import Profile from './components/Profile'
 import CreateAppt from './components/CreateAppt'
+import Meetups from './app/Meetups'
 
 function App() {
     const { user, isLoggedIn } = useAuthService()
@@ -57,7 +57,6 @@ function App() {
                 if (response.ok) {
                     const userData = await response.json()
                     setAdmin(userData.admin)
-                    console.log('Is Admin:', userData.admin)
                 }
             } catch (e) {
                 console.error(e)
@@ -128,6 +127,17 @@ function App() {
                     <Route path="/create-appt" element={<CreateAppt />} />
 
                     <Route
+                        path="/meetups"
+                        element={
+                            <Meetups
+                                key={refresh}
+                                admin={admin}
+                                darkmode={darkMode}
+                            />
+                        }
+                    />
+
+                    <Route
                         path="/pets"
                         element={
                             <Dogs
@@ -181,7 +191,14 @@ function App() {
                     <Route path="/services" element={<Services />} />
                     <Route path="/servicelist" element={<ServiceList />} />
                     <Route path="/testimonials" element={<Testimonials />} />
-                    <Route path="/testimonials/manage" element={<TestimonialsList />} />
+                    <Route
+                        path="/testimonials/manage"
+                        element={<TestimonialsList />}
+                    />
+                    <Route
+                        path="/testimonials/manage"
+                        element={<TestimonialsList />}
+                    />
                     {!isLoggedIn ? (
                         <>
                             <Route
