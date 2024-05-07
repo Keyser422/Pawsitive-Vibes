@@ -43,9 +43,8 @@ function TestimonialsCarousel() {
                 {testimonials.map((testimonial) => (
                     <Carousel.Item key={testimonial.id}>
                         <div className="testimonial-item">
-                            <h3>{testimonial.name}</h3>
-                            <p>Rating: {testimonial.rating}</p>
-                            <p>"{testimonial.description}"</p>
+                            <h3 className = "testimonial-name">{testimonial.name}</h3>
+                            <p className = "testimonial-description">"    {testimonial.description}   "</p>
                         </div>
                     </Carousel.Item>
                 ))}
