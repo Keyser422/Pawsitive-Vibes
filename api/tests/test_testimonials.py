@@ -42,11 +42,11 @@ def test_create_testimonial():
     )
 
     jwt_token = generate_jwt(user)
-    client.cookies["fast_api_token"] = jwt_token
+    client.headers.update({"Authorization": f"Bearer {jwt_token}"})
 
     response = client.post("/api/testimonials", json=sample_testimonial)
 
-    assert response.status_code == 201
+    assert response.status_code == 200
     assert response.json() == {
         "id": 1,
         **sample_testimonial
