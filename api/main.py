@@ -1,7 +1,9 @@
 """
 Entry point for the FastAPI Application
 """
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
+from typing import Optional
+import httpx
 from fastapi.middleware.cors import CORSMiddleware
 from keys import CALENDLY_API_KEY
 from routers import (
@@ -50,3 +52,40 @@ def launch_details():
     }
 
 
+CALDENDLY_API_BASE_URL = "https://api.calendly.com"
+
+@app.get("/events")
+async def get_events(user_uri: Optional[str] = None):
+    try:
+        headers = {
+            "Authorization": f"Bearer {CALENDLY_API_KEY}",
+            "Content-Type": "application/json"
+        }
+
+        params = {}
+        if user_uri:
+            params["user"] = user_uri
+
+        async with httpx.AsyncClient() as client:
+            response = await client.get(f"{CALDENDLY_API_BASE_URL}/scheduled_events", headers=headers, params=params)
+            response.raise_for_status()
+            events = response.json()
+            return events
+    except httpx.HTTPError as e:
+        raise HTTPException(status_code=e.response.status_code, detail="Failed to retrieve events from Calendly")
+    
+@app.get("/user-uri")
+async def get_user_uri():
+    try:
+        headers = {
+            "Authorization": f"Bearer {CALENDLY_API_KEY}"
+        }
+        
+        async with httpx.AsyncClient() as client:
+            response = await client.get(f"{CALDENDLY_API_BASE_URL}/users/me", headers=headers)
+            response.raise_for_status()
+            user_data = response.json()
+            user_uri = user_data["uri"]
+            return {"user_uri": user_uri}
+    except httpx.HTTPError as e:
+        raise HTTPException(status_code=e.response.status_code, detail="Failed to retrieve user URI from Calendly")
