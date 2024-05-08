@@ -7,7 +7,7 @@ import '../css/ServiceList.css'
 export default function ServiceList(props) {
     const admin = props.admin
     const darkmode = props.darkmode
-    const { user } = useAuthService()
+    const { user, isLoggedIn } = useAuthService()
     const [services, setServices] = useState([])
 
     const fetchData = async () => {
@@ -28,15 +28,13 @@ export default function ServiceList(props) {
     const handleRemove = async (event) => {
         event.preventDefault()
         const serviceId = event.target.value
-        console.log("service id is:", serviceId)
         const url = `${baseUrl}/api/services/${serviceId}`
-        console.log("services url:", url)
         const fetchConfig = {
             method: 'delete',
             credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
-            }
+            },
         }
         const response = await fetch(url, fetchConfig)
         if (response.ok) {
@@ -48,12 +46,11 @@ export default function ServiceList(props) {
         fetchData()
     }, [])
 
-
-
     return (
         <main className={`${darkmode ? ' darkmode' : ''}`}>
             <div>
                 <h1 className="display-5 fw-bold">Services</h1>
+                <br />
                 <table className="table table-striped table-hover">
                     <thead>
                         <tr>
@@ -79,7 +76,7 @@ export default function ServiceList(props) {
                                 <td>{service.service}</td>
                                 <td>{service.description}</td>
                                 <td>{service.cost}</td>
-                                {admin && (
+                                {isLoggedIn && admin && (
                                     <td>
                                         <Link
                                             to={`/updateservice/${service.id}`}
@@ -95,7 +92,7 @@ export default function ServiceList(props) {
                                         </Link>
                                     </td>
                                 )}
-                                {admin && (
+                                {isLoggedIn && admin && (
                                     <td>
                                         <button
                                             type="delete"
@@ -110,6 +107,8 @@ export default function ServiceList(props) {
                                 )}
                                 {!admin && <td></td>}
                                 {!admin && <td></td>}
+                                {!user && <td></td>}
+                                {!user && <td></td>}
                                 {!user && <td></td>}
                                 {user && (
                                     <td>

@@ -12,7 +12,6 @@ import CreatePetForm from './components/CreatePetForm'
 import CreateService from './components/CreateService'
 import ErrorNotification from './components/ErrorNotification'
 import Footer from './app/Footer'
-import GetAllServices from './components/GetAllServices'
 import GetAllTestimonials from './components/GetAllTestimonials'
 import Home from './app/Home'
 import Meetups from './app/Meetups'
@@ -162,11 +161,6 @@ function App() {
                             />
                         }
                     />
-                    <Route
-                        path="/GetAllServices"
-                        element={<GetAllServices />}
-                    />
-
                     {!isLoggedIn ? (
                         <>
                             <Route

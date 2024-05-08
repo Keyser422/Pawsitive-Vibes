@@ -1,28 +1,16 @@
 import { useEffect, useState } from 'react'
 import { baseUrl } from '../services/authService'
+import useAuthService from '../hooks/useAuthService'
 import { useNavigate } from 'react-router-dom'
+import handleAge from '../components/handleAge'
+import handleFormatDate from '../components/handleFormatDate'
 
 export default function PetList(props) {
     const admin = props.admin
     const navigate = useNavigate()
+    const { isLoggedIn } = useAuthService()
 
     const [petColumns, setPetColumns] = useState([[], [], []])
-
-    function handleAge(birthday) {
-        var today = new Date()
-        var birthDate = new Date(birthday)
-        var age = today.getFullYear() - birthDate.getFullYear()
-        var m = today.getMonth() - birthDate.getMonth()
-        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-            age--
-        }
-        return age
-    }
-
-    function formatAge(birthday) {
-        const date = birthday.split('-')
-        return `${date[1]}/${date[2]}/${date[0]}`
-    }
 
     const fetchData = async () => {
         const url = `${baseUrl}/api/pets`
@@ -131,7 +119,7 @@ export default function PetList(props) {
                                 {handleAge(pets.birthday) == 0 && (
                                     <div>
                                         <h5 className="card-subtitle">
-                                            Born: {formatAge(pets.birthday)}
+                                            Born: {handleFormatDate(pets.birthday)}
                                         </h5>
                                     </div>
                                 )}
@@ -144,21 +132,18 @@ export default function PetList(props) {
                                 <div className="text-center"></div>
                                 <br></br>
                                 <div className="text-center">
-                                    {admin && (
+                                    {isLoggedIn && admin && (
                                         <button
                                             type="button"
                                             className="btn btn-primary"
                                             value={pets.id}
                                             onClick={handleEdit}
-                                            style={{
-                                                margin: '10px',
-                                                background: 'green',
-                                            }}
+                                            style={{ margin: '10px', background: 'green' }}
                                         >
                                             Edit
                                         </button>
                                     )}
-                                    {admin && (
+                                    {isLoggedIn && admin && (
                                         <button
                                             className="btn btn-primary"
                                             value={pets.id}
