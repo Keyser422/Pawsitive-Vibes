@@ -40,11 +40,11 @@ def test_create_testimonial():
         email="test@example.com",
         password="hashed_password"
     )
-    
+
     jwt_token = generate_jwt(user)
     client.cookies["fast_api_token"] = jwt_token
 
-    response = client.post("/api/pets", json=sample_testimonial)
+    response = client.post("/api/testimonials", json=sample_testimonial)
 
     assert response.status_code == 201
     assert response.json() == {
