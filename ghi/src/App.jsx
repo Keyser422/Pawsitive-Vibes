@@ -1,31 +1,36 @@
-import Nav from './app/Nav'
+import { Route, Routes, BrowserRouter, Navigate } from 'react-router-dom'
 import './css/App.css'
+import './css/darkmode.css'
 import './css/index.css'
 import 'bootstrap/dist/css/bootstrap.css'
-import './css/darkmode.css'
 import icon from './images/darkmode.png'
 import light from './images/lightmode.png'
-import Home from './app/Home'
-import ErrorNotification from './components/ErrorNotification'
-import { Routes, Route, BrowserRouter, Navigate } from 'react-router-dom'
-import { useState, useEffect } from 'react'
-import { baseUrl } from './services/authService'
 import Community from './app/Community'
+import CreateAppt from './components/CreateAppt'
+import CreateMeetups from './components/CreateMeetups'
+import CreatePetForm from './components/CreatePetForm'
+import CreateService from './components/CreateService'
+import ErrorNotification from './components/ErrorNotification'
+import Footer from './app/Footer'
+import GetAllServices from './components/GetAllServices'
+import GetAllTestimonials from './components/GetAllTestimonials'
+import Home from './app/Home'
+import Meetups from './app/Meetups'
+import Nav from './app/Nav'
+import Pets from './app/Pets'
+import Profile from './components/Profile'
+import Services from './app/Services'
 import SignInForm from './app/SignInForm'
 import SignUpForm from './app/SignUpForm'
 import SignOut from './components/SignOut'
-import Services from './app/Services'
 import Testimonials from './app/Testimonials'
-import Dogs from './app/Dogs'
 import UpdatePet from './components/UpdatePet'
-import useAuthService from './hooks/useAuthService'
-import Footer from './app/Footer'
-import UpdateService from './components/UpdateService'
-import TestimonialsList from './components/GetAllTestimonials'
-import Profile from './components/Profile'
-import CreateAppt from './components/CreateAppt'
-import Meetups from './app/Meetups'
 import UpdateProfile from './components/UpdateProfile'
+import UpdateProfilePic from './components/UpdateProfilePic'
+import UpdateService from './components/UpdateService'
+import useAuthService from './hooks/useAuthService'
+import { baseUrl } from './services/authService'
+import { useState, useEffect } from 'react'
 
 function App() {
     const { user, isLoggedIn } = useAuthService()
@@ -127,7 +132,6 @@ function App() {
                         path="/"
                         element={<Home darkmode={darkMode} admin={admin} />}
                     />
-                    <Route path="/create-appt" element={<CreateAppt />} />
                     <Route
                         path="/meetups"
                         element={
@@ -141,7 +145,7 @@ function App() {
                     <Route
                         path="/pets"
                         element={
-                            <Dogs
+                            <Pets
                                 key={refresh}
                                 admin={admin}
                                 darkmode={darkMode}
@@ -158,7 +162,11 @@ function App() {
                             />
                         }
                     />
-                    {/* sign up / sign in / sign out */}
+                    <Route
+                        path="/GetAllServices"
+                        element={<GetAllServices />}
+                    />
+
                     {!isLoggedIn ? (
                         <>
                             <Route
@@ -195,6 +203,10 @@ function App() {
                                 }
                             />
                             <Route
+                                path="/create-appt"
+                                element={<CreateAppt />}
+                            />
+                            <Route
                                 path="/profile"
                                 element={
                                     <Profile
@@ -213,6 +225,12 @@ function App() {
                                 }
                             />
                             <Route
+                                path="/profile/updatepic"
+                                element={
+                                    <UpdateProfilePic darkmode={darkMode} />
+                                }
+                            />
+                            <Route
                                 path="/testimonials"
                                 element={
                                     <Testimonials
@@ -225,13 +243,43 @@ function App() {
                             <Route
                                 path="/testimonials/manage"
                                 element={
-                                    <TestimonialsList darkmode={darkMode} />
+                                    <GetAllTestimonials darkmode={darkMode} />
+                                }
+                            />
+                            <Route
+                                path="/meetups/create"
+                                element={
+                                    <CreateMeetups
+                                        key={refresh}
+                                        admin={admin}
+                                        darkmode={darkMode}
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/createpet"
+                                element={
+                                    <CreatePetForm
+                                        key={refresh}
+                                        admin={admin}
+                                        darkmode={darkMode}
+                                    />
                                 }
                             />
                             <Route
                                 path="pets/:petId"
                                 element={
                                     <UpdatePet
+                                        key={refresh}
+                                        admin={admin}
+                                        darkmode={darkMode}
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/createservice"
+                                element={
+                                    <CreateService
                                         key={refresh}
                                         admin={admin}
                                         darkmode={darkMode}
@@ -261,7 +309,23 @@ function App() {
                                 element={<Navigate to="/" />}
                             />
                             <Route
+                                path="/create-appt"
+                                element={<Navigate to="/" />}
+                            />
+                            <Route
                                 path="/profile"
+                                element={<Navigate to="/" />}
+                            />
+                            <Route
+                                path="/profile/update"
+                                element={<Navigate to="/" />}
+                            />
+                            <Route
+                                path="/profile/updatepic"
+                                element={<Navigate to="/" />}
+                            />
+                            <Route
+                                path="/meetups/create"
                                 element={<Navigate to="/" />}
                             />
                             <Route
@@ -274,6 +338,14 @@ function App() {
                             />
                             <Route
                                 path="pets/:petId"
+                                element={<Navigate to="/" />}
+                            />
+                            <Route
+                                path="/createpet"
+                                element={<Navigate to="/" />}
+                            />
+                            <Route
+                                path="/createservice"
                                 element={<Navigate to="/" />}
                             />
                             <Route

@@ -21,6 +21,10 @@ services:
             DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db/${POSTGRES_DB}
             SIGNING_KEY: ${SIGNING_KEY}
             VITE_GOOGLE_MAPS_API_KEY: ${VITE_GOOGLE_MAPS_API_KEY}
+            PUBLIC_KEY: ${PUBLIC_KEY}
+            TEMPLATE_ID: ${TEMPLATE_ID}
+            SERVICE_ID: ${SERVICE_ID}
+            PV_EMAIL: ${PV_EMAIL}
         build:
             context: api
             dockerfile: Dockerfile.dev
