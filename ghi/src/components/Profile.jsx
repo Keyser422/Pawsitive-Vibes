@@ -1,33 +1,28 @@
 import 'bootstrap/dist/css/bootstrap.css'
-import CreatePetForm from '../components/CreatePetForm'
 import { useState, useEffect } from 'react'
 import useAuthService from '../hooks/useAuthService'
 import { baseUrl } from '../services/authService'
-import corgi from '../images/dogs/Corgi.png'
-import PetList from './GetAllPets'
+import PetList from './GetUserPets'
+import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import about from '../images/assets/p1.png'
 
 function Profile(props) {
     const { isLoggedIn, user } = useAuthService()
     const darkmode = props.darkmode
-    const [createForm, setCreateForm] = useState(false)
-    const [closeForm, setCloseForm] = useState(true)
     const [userData, setUserData] = useState({
         name: '',
         username: '',
         bio: '',
     })
 
-    const handleCreatePet = () => {
-        setCreateForm(true)
-        setCloseForm(false)
+    const navigate = useNavigate()
+    const handleNavigate = (event) => {
+        event.preventDefault()
+        navigate('/createpet')
     }
 
-    const handleCloseForm = () => {
-        setCreateForm(false)
-        setCloseForm(true)
-    }
+    const [profileImage, setProfileImage] = useState(null)
 
     useEffect(() => {
         if (isLoggedIn) {
@@ -58,40 +53,47 @@ function Profile(props) {
         }
     }, [isLoggedIn, user])
 
+    useEffect(() => {
+        const fetchProfileImage = async () => {
+            const id = user.id
+            try {
+                const response = await fetch(
+                    `${baseUrl}/profile_image/${id}?timestamp=${Date.now()}`
+                )
+                if (response.ok) {
+                    const imageData = await response.blob()
+                    setProfileImage(URL.createObjectURL(imageData))
+                } else {
+                    console.error('Failed to fetch profile image')
+                }
+            } catch (error) {
+                console.error('Error fetching profile image:', error)
+            }
+        }
+        fetchProfileImage()
+    }, [isLoggedIn, user])
+
     return (
         <main className={`${darkmode ? ' darkmode' : ''}`}>
             <div className="container">
-                <div className="row">
+                <div className="row justify-content-center align-items-center">
                     <div className="col-md-4">
-                        <div className="card mb-3">
+                        <div className={`mb-3${darkmode ? ' darkmode' : ''}`}>
                             <img
-                                src={corgi}
+                                src={profileImage}
                                 alt="community"
-                                className="community-image card-img-top"
+                                className="card-img-top"
                                 style={{
                                     borderRadius: '10px',
-                                    maxHeight: '200px',
-                                    maxWidth: '200px',
-                                    marginTop: '2rem',
-                                    marginBottom: '2rem',
-                                    alignSelf: 'center',
+                                    objectFit: 'cover',
+                                    height: '400px',
                                 }}
                             />
                         </div>
-                        <div className="text-center">
-                            <button className="btn btn-danger">
-                                Update Picture
-                            </button>
-                            <span> </span>
-                        </div>
-                        <br></br>
                     </div>
                     <div className="col-md-8">
-                        <div className="card mb-3 form-control">
-                            <div
-                                className="card-body"
-                                style={{ maxWidth: '100%' }}
-                            >
+                        <div className=" mb-3">
+                            <div className="card-body">
                                 <h5 className="card-title">
                                     <b>User:</b> {userData.username}
                                 </h5>
@@ -110,12 +112,26 @@ function Profile(props) {
                                         }}
                                     />
                                 </p>
-                                <p> </p>
+                                <Link
+                                    className="fontcolor"
+                                    to="/profile/updatepic"
+                                >
+                                    <button
+                                        className="btn btn-primary"
+                                        style={{ background: 'green ' }}
+                                    >
+                                        Update Picture
+                                    </button>
+                                </Link>
+                                <span> </span>
                                 <Link
                                     className="fontcolor"
                                     to="/profile/update"
                                 >
-                                    <button className="btn btn-danger">
+                                    <button
+                                        className="btn btn-primary"
+                                        style={{ background: 'green ' }}
+                                    >
                                         Update Profile
                                     </button>
                                 </Link>
@@ -126,29 +142,17 @@ function Profile(props) {
                 {isLoggedIn && (
                     <div className="row">
                         <div className="col-md-12 text-center">
-                            <h1>My Pets</h1>
-                            <h3>This is where list of pets go.</h3>
-                            <p>
-                                <PetList />
-                            </p>
-                            {createForm && <CreatePetForm />}
-                            {closeForm && (
-                                <button
-                                    className="btn btn-secondary"
-                                    onClick={handleCreatePet}
-                                >
-                                    Add a Pet
-                                </button>
-                            )}
+                            <h2>My Pets</h2>
+                            <PetList />
+
+                            <button
+                                className="btn btn-primary"
+                                onClick={handleNavigate}
+                            >
+                                Add a Pet
+                            </button>
+
                             <br />
-                            {createForm && (
-                                <button
-                                    className="btn btn-secondary"
-                                    onClick={handleCloseForm}
-                                >
-                                    Close Form
-                                </button>
-                            )}
                         </div>
                     </div>
                 )}
