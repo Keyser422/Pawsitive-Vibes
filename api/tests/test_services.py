@@ -11,7 +11,8 @@ client = TestClient(app)
 class EmptyServiceQueries:
     def get_all(self):
         return []
-    
+
+
 class SampleServiceQueries(ServiceRepository):
     def create(self, service: ServiceIn) -> ServiceOut:
         return ServiceOut(
@@ -37,6 +38,7 @@ def test_get_all_services():
     assert response.status_code == 404
     assert response.json() == {'detail': 'Services not found.'}
 
+
 def test_create_service():
     app.dependency_overrides[ServiceRepository] = SampleServiceQueries
 
@@ -58,9 +60,7 @@ def test_create_service():
     jwt_token = generate_jwt(user)
     client.cookies["fast_api_token"] = jwt_token
 
-
     response = client.post("/api/services", json=sample_service)
-
 
     assert response.status_code == 200
     assert response.json() == {
@@ -70,6 +70,7 @@ def test_create_service():
 
     app.dependency_overrides = {}
     client.cookies.clear()
+
 
 def test_create_service_unauthorized():
 
@@ -88,3 +89,4 @@ def test_create_service_unauthorized():
 
     assert response.status_code == 401
     app.dependency_overrides = {}
+    
