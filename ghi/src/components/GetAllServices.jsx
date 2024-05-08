@@ -7,7 +7,7 @@ import '../css/ServiceList.css'
 export default function ServiceList(props) {
     const admin = props.admin
     const darkmode = props.darkmode
-    const { user } = useAuthService()
+    const { user, isLoggedIn } = useAuthService()
     const [services, setServices] = useState([])
 
     const fetchData = async () => {
@@ -89,6 +89,7 @@ export default function ServiceList(props) {
         <main className={`${darkmode ? ' darkmode' : ''}`}>
             <div>
                 <h1 className="display-5 fw-bold">Services</h1>
+                <br />
                 <table className="table table-striped table-hover">
                     <thead>
                         <tr>
@@ -118,7 +119,7 @@ export default function ServiceList(props) {
                                 </td>
                                 <td>{service.description}</td>
                                 <td>{service.cost}</td>
-                                {admin && (
+                                {isLoggedIn && admin && (
                                     <td>
                                         <Link
                                             to={`/updateservice/${service.id}`}
@@ -134,7 +135,7 @@ export default function ServiceList(props) {
                                         </Link>
                                     </td>
                                 )}
-                                {admin && (
+                                {isLoggedIn && admin && (
                                     <td>
                                         <button
                                             type="delete"
@@ -149,6 +150,8 @@ export default function ServiceList(props) {
                                 )}
                                 {!admin && <td></td>}
                                 {!admin && <td></td>}
+                                {!user && <td></td>}
+                                {!user && <td></td>}
                                 {!user && <td></td>}
                                 {user && (
                                     <td>
