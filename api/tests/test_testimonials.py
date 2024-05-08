@@ -10,7 +10,7 @@ class EmptyTestimonialQueries:
         return []
 
 
-def test_get_all_services():
+def test_get_all_testimonials():
     # ARRAGNE
     app.dependency_overrides[TestimonialRepository] = EmptyTestimonialQueries
 
