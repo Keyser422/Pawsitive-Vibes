@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { baseUrl } from '../services/authService'
 import useAuthService from '../hooks/useAuthService'
 import '../css/ServiceList.css'
-import useAuthService from '../hooks/useAuthService'
+
 
 export default function ServiceList(props) {
     const admin = props.admin
@@ -25,14 +25,6 @@ export default function ServiceList(props) {
             console.error('Error fetching services:', error)
         }
     }
-
-    // useEffect(() => {
-    //     fetchData()
-    //     if (props.pollService) {
-    //         const polling = setInterval(fetchData, 1)
-    //         return () => clearInterval(polling)
-    //     }
-    // })
 
     useEffect(() => {
         fetchData()

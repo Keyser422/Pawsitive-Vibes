@@ -34,7 +34,7 @@ function Services(props) {
                 <div className="text-center">
                     <ServiceList pollService={refresh} admin={admin} />
 
-                    {isLoggedIn && (
+                    {admin && (
                         <div>
                             {createForm && <ServiceForm />}
                             {closeForm && (
