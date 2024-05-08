@@ -1,8 +1,11 @@
 """
 Entry point for the FastAPI Application
 """
-from fastapi import FastAPI, Form, UploadFile
+from fastapi import FastAPI, Form, UploadFile, HTTPException
+import httpx
+from typing import Optional
 from fastapi.responses import FileResponse
+from keys import CALENDLY_API_KEY
 from fastapi.middleware.cors import CORSMiddleware
 from pathlib import Path
 from routers import (
@@ -57,6 +60,14 @@ async def get_profile_image(id: int):
     image_path = UPLOAD_DIR / f"{id}.png"
     if not image_path.is_file():
         return {"error": "Profile image not found"}
+
+    return FileResponse(str(image_path), media_type='image/png')
+
+@app.get('/service_image/{id}')
+async def get_service_image(id: int):
+    image_path = UPLOAD_DIR / f"{id}.png"
+    if not image_path.is_file():
+        return {"error": "Service image not found"}
 
     return FileResponse(str(image_path), media_type='image/png')
 
