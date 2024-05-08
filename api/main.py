@@ -60,6 +60,7 @@ async def get_profile_image(id: int):
 
     return FileResponse(str(image_path), media_type='image/png')
 
+
 @app.get('/service_image/{id}')
 async def get_service_image(id: int):
     image_path = UPLOAD_DIR / f"{id}.png"
@@ -67,4 +68,3 @@ async def get_service_image(id: int):
         return {"error": "Service image not found"}
 
     return FileResponse(str(image_path), media_type='image/png')
-
