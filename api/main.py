@@ -52,6 +52,7 @@ async def upload_file(file_upload: UploadFile, filename: str = Form(...)):
 
     return {'filename': filename}
 
+
 @app.post('/upload_service_image/')
 async def upload_service_image(file_upload: UploadFile, filename: str = Form(...)):
     data = await file_upload.read()
@@ -59,6 +60,7 @@ async def upload_service_image(file_upload: UploadFile, filename: str = Form(...
     with open(save_to, 'wb') as f:
         f.write(data)
     return {'filename': filename}
+
 
 @app.get('/profile_image/{id}')
 async def get_profile_image(id: int):
@@ -68,9 +70,10 @@ async def get_profile_image(id: int):
 
     return FileResponse(str(image_path), media_type='image/png')
 
+
 @app.get('/service_image/{id}')
 async def get_service_image(id: int):
-    image_path = SERVICE_IMAGES_DIR / f"{id}.png"  
+    image_path = SERVICE_IMAGES_DIR / f"{id}.png"
     if not image_path.is_file():
         return {"error": "Service image not found"}
     return FileResponse(str(image_path), media_type='image/png')
