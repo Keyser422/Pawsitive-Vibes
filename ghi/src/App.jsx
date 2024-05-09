@@ -23,6 +23,7 @@ import SignInForm from './app/SignInForm'
 import SignUpForm from './app/SignUpForm'
 import SignOut from './components/SignOut'
 import Testimonials from './app/Testimonials'
+import UpdateMeetups from './components/UpdateMeetups'
 import UpdatePet from './components/UpdatePet'
 import UpdateProfile from './components/UpdateProfile'
 import UpdateProfilePic from './components/UpdateProfilePic'
@@ -251,6 +252,16 @@ function App() {
                                 }
                             />
                             <Route
+                                path="/meetups/:id"
+                                element={
+                                    <UpdateMeetups
+                                        key={refresh}
+                                        admin={admin}
+                                        darkmode={darkMode}
+                                    />
+                                }
+                            />
+                            <Route
                                 path="/createpet"
                                 element={
                                     <CreatePetForm
@@ -320,6 +331,10 @@ function App() {
                             />
                             <Route
                                 path="/meetups/create"
+                                element={<Navigate to="/" />}
+                            />
+                            <Route
+                                path="/meetups/:id"
                                 element={<Navigate to="/" />}
                             />
                             <Route

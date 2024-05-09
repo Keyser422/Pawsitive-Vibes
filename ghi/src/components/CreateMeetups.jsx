@@ -4,7 +4,7 @@ import useAuthService from '../hooks/useAuthService'
 import { useNavigate } from 'react-router-dom'
 
 
-export default function CreateMeetup(props) {
+export default function CreateMeetups(props) {
     const darkmode = props.darkmode
     const { error } = useAuthService()
 
@@ -15,7 +15,6 @@ export default function CreateMeetup(props) {
         description: '',
         location: '',
     })
-
 
     const handleInputChange = (event) => {
         setMeetupFormData({
@@ -30,7 +29,6 @@ export default function CreateMeetup(props) {
 
     async function handleFormSubmit(e) {
         e.preventDefault()
-
         const res = await fetch(`${baseUrl}/api/meetups`, {
             method: 'post',
             credentials: 'include',
@@ -55,7 +53,12 @@ export default function CreateMeetup(props) {
         <main className={`${darkmode ? ' darkmode' : ''}`}>
             <div className="container">
                 <div className="row shadow mt-4">
-                    <h1 className="card-title text-center">Add a Meetup</h1>
+                    <h1
+                        className="card-title text-center"
+                        style={{ paddingTop: '20px', paddingBottom: '20px' }}
+                    >
+                        Add a Meetup
+                    </h1>
                     <form onSubmit={handleFormSubmit}>
                         {error && (
                             <div className="alert alert-danger">
