@@ -282,3 +282,12 @@ Today I worked on:
 - fixing darkmode css and other minor css
 - refactor App.jsx
 - move config.js content to .env
+- set up README.md for our project
+
+## 5.9.2024
+
+Today I worked on:
+
+- reformatted Home page so that the image carousel and testimonials carousel are side by side
+- fixed some minor css and formatting issues
+- GHI diagrams for README.md

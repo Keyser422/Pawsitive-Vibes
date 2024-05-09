@@ -25,9 +25,8 @@ export default function ServiceList(props) {
         }
     }
 
-    const handleRemove = async (event) => {
+    const handleRemove = async (event, serviceId) => {
         event.preventDefault()
-        const serviceId = event.target.value
         const url = `${baseUrl}/api/services/${serviceId}`
         const fetchConfig = {
             method: 'delete',
@@ -38,13 +37,54 @@ export default function ServiceList(props) {
         }
         const response = await fetch(url, fetchConfig)
         if (response.ok) {
-            fetchData()
+            setServices((prevServices) =>
+                prevServices.filter((service) => service.id !== serviceId)
+            )
         }
     }
 
     useEffect(() => {
         fetchData()
     }, [])
+
+    const [serviceImages, setServiceImages] = useState({})
+
+    useEffect(() => {
+        const fetchServiceImages = async () => {
+            try {
+                const imagePromises = services.map(async (service) => {
+                    const response = await fetch(
+                        `${baseUrl}/service_image/${service.id}`
+                    )
+                    if (response.ok) {
+                        const imageData = await response.blob()
+                        return {
+                            id: service.id,
+                            imageUrl: URL.createObjectURL(imageData),
+                        }
+                    } else {
+                        console.error(
+                            'Failed to fetch service image:',
+                            response.statusText
+                        )
+                        return {
+                            id: service.id,
+                            imageUrl: null,
+                        }
+                    }
+                })
+                const resolvedImages = await Promise.all(imagePromises)
+                const imageMap = {}
+                resolvedImages.forEach((imageData) => {
+                    imageMap[imageData.id] = imageData.imageUrl
+                })
+                setServiceImages(imageMap)
+            } catch (error) {
+                console.error('Error fetching service images:', error)
+            }
+        }
+        fetchServiceImages()
+    }, [services])
 
     return (
         <main className={`${darkmode ? ' darkmode' : ''}`}>
@@ -66,14 +106,19 @@ export default function ServiceList(props) {
                     <tbody>
                         {services.map((service, index) => (
                             <tr key={index}>
-                                <td className="w-25">
-                                    <img
-                                        src={service.picture_url}
-                                        className="img-fluid img-thumbnail"
-                                        alt="Service"
-                                    />
+                                <td className="w-25">{service.service}</td>
+                                <td>
+                                    {serviceImages[service.id] ? (
+                                        <img
+                                            src={serviceImages[service.id]}
+                                            className="img-fluid img-thumbnail"
+                                            alt="Service"
+                                            style={{ height: '100px' }}
+                                        />
+                                    ) : (
+                                        <span>No Image</span>
+                                    )}
                                 </td>
-                                <td>{service.service}</td>
                                 <td>{service.description}</td>
                                 <td>{service.cost}</td>
                                 {isLoggedIn && admin && (
@@ -96,7 +141,9 @@ export default function ServiceList(props) {
                                     <td>
                                         <button
                                             type="delete"
-                                            onClick={handleRemove}
+                                            onClick={(e) =>
+                                                handleRemove(e, service.id)
+                                            }
                                             value={service.id}
                                             className="btn btn-primary"
                                             style={{ background: 'red' }}
@@ -108,16 +155,17 @@ export default function ServiceList(props) {
                                 {!admin && <td></td>}
                                 {!admin && <td></td>}
                                 {!user && <td></td>}
-                                {!user && <td></td>}
-                                {!user && <td></td>}
                                 {user && (
                                     <td>
-                                        <button
+                                        <a
+                                            href={service.calendly_url}
                                             className="btn btn-primary"
                                             style={{ background: 'green' }}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
                                         >
                                             Request Appointment
-                                        </button>
+                                        </a>
                                     </td>
                                 )}
                             </tr>
