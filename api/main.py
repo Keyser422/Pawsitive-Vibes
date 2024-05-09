@@ -35,7 +35,6 @@ app.include_router(testimonials_router.router)
 app.include_router(meetups_router.router)
 
 
-
 UPLOAD_DIR = Path('static/profile_images')
 SERVICE_IMAGES_DIR = Path('static/service_images')
 
@@ -55,7 +54,9 @@ async def upload_file(file_upload: UploadFile, filename: str = Form(...)):
 
 
 @app.post('/upload_service_image/')
-async def upload_service_image(file_upload: UploadFile, filename: str = Form(...)):
+async def upload_service_image(
+        file_upload: UploadFile, filename: str = Form(...)
+    ):
     data = await file_upload.read()
     save_to = SERVICE_IMAGES_DIR / filename
     with open(save_to, 'wb') as f:
