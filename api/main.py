@@ -55,8 +55,8 @@ async def upload_file(file_upload: UploadFile, filename: str = Form(...)):
 
 @app.post('/upload_service_image/')
 async def upload_service_image(
-        file_upload: UploadFile, filename: str = Form(...)
-    ):
+    file_upload: UploadFile, filename: str = Form(...)
+):
     data = await file_upload.read()
     save_to = SERVICE_IMAGES_DIR / filename
     with open(save_to, 'wb') as f:
