@@ -113,6 +113,7 @@ export default function ServiceList(props) {
                                             src={serviceImages[service.id]}
                                             className="img-fluid img-thumbnail"
                                             alt="Service"
+                                            style={{ height: '100px'}}
                                         />
                                     ) : (
                                         <span>No Image</span>
