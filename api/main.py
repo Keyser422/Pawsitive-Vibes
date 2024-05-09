@@ -35,6 +35,7 @@ app.include_router(testimonials_router.router)
 app.include_router(meetups_router.router)
 
 
+
 UPLOAD_DIR = Path('static/profile_images')
 SERVICE_IMAGES_DIR = Path('static/service_images')
 
